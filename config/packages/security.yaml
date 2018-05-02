@@ -1,0 +1,57 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        # in_memory: { memory: ~ }
+        eliasdb_provider:
+            entity:
+                class: App\Entity\User
+                #property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern:  ^/
+            http_basic: ~
+            provider: eliasdb_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: app_homepage
+                always_use_default_target_path: true
+
+            logout:
+                path: /logout
+                target: app_homepage
+
+            #guard:
+                #authenticators:
+                    #- App\Security\TokenAuthenticator
+                    # - App\Security\TokenAuthenticator
+
+                     # if you want, disable storing the user in the session
+                      # stateless: true
+
+                      # maybe other things, like form_login, remember_me, etc
+                      # ...
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+       - { path: ^/locked, roles: ROLE_USER }
+
+

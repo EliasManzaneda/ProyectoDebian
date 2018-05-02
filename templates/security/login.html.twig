@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+                <!-- H1 Article -->
+                <div class="main-article-link">
+                    <div class="main-article mb-5 pb-5">
+
+                        <div class="container">
+                            {% if error %}
+                                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+
+                            <form class="form-signin" action="{{ path('login') }}" method="post">
+                                <h2 class="form-signin-heading">Already registered? Sign In!</h2>
+                                <p>Don't have an account yet? <a href="{{ path('user_registration') }}">Sign Up!</a></p>
+
+
+                                <label for="username" class="sr-only">Username or Email</label>
+                                <input type="text" id="username" name="_username" class="form-control" placeholder="Username or Email" value="{{ last_username }}" required autofocus />
+
+                                <label for="password"  class="sr-only">Password</label>
+                                <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required/>
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                            </form>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

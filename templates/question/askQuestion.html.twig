@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+                <!-- H1 Article -->
+                <div class="main-article-link">
+                    <div class="main-article mb-5 pb-5">
+
+                        <div class="container">
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <input type="submit" class="btn" value="Create" />
+                            {{ form_end(form) }}
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

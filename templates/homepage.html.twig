@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 intromessage">
+                {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+
+
+                    <h1>A place to share knowledge in the tongue of Cervantes</h1>
+                    <p>Desbordamiento de Pila is a website where developers of the Hispanic community can solve their problems in their native tongue.</p>
+
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+
+
+
+
+            <div class="col-sm-12 col-md-8">
+
+
+
+<!--
+
+                <a class="main-article-link" href="#">
+                    <div class="main-article mb-5 pb-3">
+                        <img src="{{ asset('build/images/meteor-shower.jpg') }}" alt="meteor shower">
+                        <h1 class="text-center mt-2">Ursid Meteor Shower: <br>Healthier than a regular shower?</h1>
+                    </div>
+                </a>
+                -->
+
+                <!-- Supporting Articles -->
+                <a  class="articlequestion" href="{{ path("article_show", { slug: "question"}) }}">
+                <div class="article-container my-1">
+
+
+                    <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+
+                        <div class="article-title d-inline-block pl-3 align-middle">
+                            <span class="questiontitle">
+                                Why is my Bootstrap push & pull divs not working?
+                            </span>
+                            <br>
+                            <span class="align-left article-details">
+
+                                <span class="questionusername">Carlos Soriano</span> asked this question <span class="questiontime">3 Hours ago</span>
+                            </span>
+                        </div>
+
+                </div>
+                </a>
+
+
+                <a  class="articlequestion" href="{{ path("article_show", { slug: "question"}) }}">
+                    <div class="article-container my-1">
+
+
+                        <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+
+                        <div class="article-title d-inline-block pl-3 align-middle">
+                            <span class="questiontitle">
+                                Symfony 2: How do I check if a user is not logged in inside a template?
+                            </span>
+                            <br>
+                            <span class="align-left article-details">
+
+                                <span class="questionusername">Pepe Domenech</span> asked this question <span class="questiontime">5 Hours ago</span>
+                            </span>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+
+                <a class="articlequestion" href="{{ path("article_show", { slug: "question"}) }}">
+                    <div class="article-container my-1">
+
+
+                        <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+
+                        <div class="article-title d-inline-block pl-3 align-middle">
+                            <span class="questiontitle">
+                                Add CSS to Form Type is Symfony2
+                            </span>
+                            <br>
+                            <span class="align-left article-details">
+
+                                <span class="questionusername">Miquel Galiana</span> asked this question <span class="questiontime">5 Hours ago</span>
+                            </span>
+                        </div>
+
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Right bar ad space -->
+
+
+            <div class="col-sm-12 col-md-4 text-center">
+                <div class="ad-space mx-auto mt-1 pb-2 pt-2">
+                    <p><span class="advertisement-text">New Questions!</span> </p>
+                    <div class="newquestions">
+                        <p>
+                            How to use font-awesome icons from node-modules?
+                            <br>
+                            <!--<a>Miguel Angel Bernabe</a>-->
+                        </p>
+                    </div>
+
+                    <div class="newquestions">
+                        <p>
+                            message box in jquery?
+                            <br>
+                            <!--<a>Antonio Ivars</a>-->
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+                <div class="quote-space pb-2 pt-2 px-5">
+                    <h3 class="text-center pb-3">Related News!</h3>
+                    <p><i class="fa fa-comment"></i> Protestan miles en Rusia contra el bloqueo de Telegram <br>— <a href="">Hipertextual</a></p>
+
+
+                    <p class="pt-4"><i class="fa fa-comment"></i> Los lenguajes de programación para niños cumplen medio siglo<br>— <a href="">El Pais</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
