@@ -45,9 +45,14 @@ class Question
     private $answers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="questions")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions")
      */
     private $tags;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
 
     public function __construct()
     {
@@ -163,6 +168,18 @@ class Question
             $this->tags->removeElement($tag);
             $tag->removeQuestion($this);
         }
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }

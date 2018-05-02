@@ -41,10 +41,11 @@
                         </li>
                         -->
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+
+                    {{ render(controller(
+                        'App\\Controller\\QuestionController::searchQuestion'
+                    )) }}
+
 
                     {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')%}
                         <ul class="navbar-nav ml-auto">
@@ -54,7 +55,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="{{ path("user_profile") }}">My Profile</a>
-                                    <a class="dropdown-item" href="#">My Questions</a>
+                                    <a class="dropdown-item" href="{{ path("list_questions") }}">My Questions</a>
                                     <a class="dropdown-item" href="{{ path("new_question") }}">Ask Question</a>
                                     <a class="dropdown-item" href="{{ path("logout") }}">Logout</a>
                                 </div>

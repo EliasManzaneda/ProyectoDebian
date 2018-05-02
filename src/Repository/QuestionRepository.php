@@ -19,6 +19,47 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
+    public function findForHomepage(){
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.user', 'u')
+            ->addOrderBy('q.creationDate', 'ASC')
+            ->addOrderBy('q.title', 'ASC')
+            ->addOrderBy('u.username', 'ASC')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    public function findForSearchbar($searchtext){
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.user', 'u')
+            ->leftJoin('q.tags', 't')
+            ->andWhere('q.title LIKE :searchtext')
+            ->andWhere('q.text LIKE :searchtext')
+            ->andWhere('t.name LIKE :searchtext')
+            ->andWhere('u.username LIKE :searchtext')
+            ->addOrderBy('q.creationDate', 'ASC')
+            ->addOrderBy('q.title', 'ASC')
+            ->addOrderBy('u.username', 'ASC')
+            ->setParameter('searchtext', $searchtext)
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    public function findForUserProfile($user){
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.user', 'u')
+            ->andWhere('u = :user')
+            ->addOrderBy('q.creationDate', 'ASC')
+            ->addOrderBy('q.title', 'ASC')
+            ->setParameter('user', $user)
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+
 //    /**
 //     * @return Question[] Returns an array of Question objects
 //     */

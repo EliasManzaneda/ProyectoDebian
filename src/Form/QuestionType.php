@@ -10,10 +10,13 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Question;
+use App\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
@@ -22,10 +25,18 @@ class QuestionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('title', TextType::class)
-            ->add('text', TextType::class)
+            ->add('_title', TextType::class)
+            ->add('_text', TextType::class)
+            ->add('_tags', EntityType::class, array(
+                'class'        => Tag::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ))
+            ->add('save', SubmitType::class, array('label' => 'Ask Question'))
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -34,4 +45,6 @@ class QuestionType extends AbstractType
             'data_class' => Question::class,
         ));
     }
+
+
 }

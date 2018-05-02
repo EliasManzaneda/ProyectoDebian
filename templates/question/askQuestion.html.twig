@@ -13,10 +13,31 @@
                     <div class="main-article mb-5 pb-5">
 
                         <div class="container">
-                            {{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            <input type="submit" class="btn" value="Create" />
-                            {{ form_end(form) }}
+
+
+                            <div class="container">
+
+
+                                <form  class="form-signin" action="{{ path('new_question') }}" method="post">
+                                    {{ form_row(form._token) }}
+                                    <h2 class="form-signin-heading">Ask the community!</h2>
+                                    <p>Remember to be as descriptive as possible. <b>And to be polite!</b></p>
+
+
+
+                                    {{ form_errors(form._title) }}
+                                    {{ form_widget(form._title, { 'attr': {'class': 'form-control', 'placeholder':'A short and clear title for your question'} }) }}
+
+                                    {{ form_errors(form._text) }}
+                                    {{ form_widget(form._text, { 'attr': {'class': 'form-control', 'placeholder':'A very descriptive question with all the details'} }) }}
+
+                                    {{ form_errors(form._tags) }}
+                                    {{ form_widget(form._tags) }}
+
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Ask Question!</button>
+                                </form>
+
+                            </div>
 
 
                         </div>

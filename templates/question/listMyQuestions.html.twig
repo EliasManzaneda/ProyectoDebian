@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+
+                            {% for question in questions %}
+                                <a  class="articlequestion" href="{{ path("article_show", { slug: "question"}) }}">
+                                    <div class="article-container my-1">
+
+
+                                        <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+
+                                        <div class="article-title d-inline-block pl-3 align-middle">
+                                            <span class="questiontitle">
+                                                {{ question.title }}
+                                            </span>
+                                                            <br>
+                                                            <span class="align-left article-details">
+                                                                <p>{{ question.text }}</p>
+
+                                                <span class="questiontime">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}</span>
+                                                                <br>
+                                                                {% for tag in question.tags %}
+                                                                <span class="questionTag">{{ tag.name }}</span>
+                                                                {% endfor %}
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            {% endfor %}
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
