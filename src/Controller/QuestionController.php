@@ -26,6 +26,8 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 class QuestionController extends AbstractController
 {
     /**
@@ -60,7 +62,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Question::class);
         $questions = $repository->findForHomepage();
@@ -68,10 +70,107 @@ class QuestionController extends AbstractController
         // $newQuestions = $questions;
         $newQuestions= array_slice($questions, -3);
 
-        return $this->render('homepage.html.twig', [
-            'questions' => $questions,
-            'newQuestions' => $newQuestions
-        ]);
+        // SEARCHBAR
+        $data = [
+            "searchbar" => "default"
+        ];
+
+        $user = $this->getUser();
+        $username = $user->getUsername();
+
+        $defaultData = array('message' => 'Type your message here');
+
+        $form = $this->createFormBuilder($defaultData)
+            ->add('searchtext', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+
+
+            $searchedquestion = $data["searchtext"];
+
+            $repository = $this->getDoctrine()->getRepository(Question::class);
+
+
+            if(empty($searchedquestion)){
+                $searchedquestion = "*";
+            }
+
+            $questions = $repository-> findForSearchbar($searchedquestion);
+
+
+            // return $this->render('question/listSearchedQuestions.html.twig', array(
+
+
+
+
+            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || $username = "administrator") {
+                // return $this->redirectToRoute('admin_homepage');
+
+                return $this->render('adminhomepage.html.twig', array(
+                    'form' => $form->createView(),
+                    'searched' => $data['searchtext'],
+                    'questions' => $questions,
+                    'searching' => true,
+                    'adminpowers' => true,
+                ));
+
+            }else{
+                return $this->render('homepage.html.twig', [
+                    'questions' => $questions,
+                    'newQuestions' => $newQuestions,
+                    'form' => $form->createView(),
+                    'searched' => $data['searchbar'],
+                    'searching' => false,
+                ]);
+            }
+
+        }
+
+
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || $username = "administrator") {
+            // return $this->redirectToRoute('admin_homepage');
+
+            $user = $this->getUser();
+            $userrole = $user->getRoles();
+            return $this->render('adminhomepage.html.twig', array(
+                'form' => $form->createView(),
+                'searched' => $data['searchbar'],
+                'questions' => $questions,
+                'searching' => true,
+                'adminpowers' => true,
+                'userroles' => $userrole,
+            ));
+
+        }else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER') ) {
+            // return $this->redirectToRoute('admin_homepage');
+            $user = $this->getUser();
+            $userrole = $user->getRoles();
+            return $this->render('homepage.html.twig', array(
+                'form' => $form->createView(),
+                'searched' => $data['searchbar'],
+                'questions' => $questions,
+                'searching' => true,
+                'adminpowers' => false,
+                'userroles' => $userrole,
+            ));
+
+        }else{
+
+            return $this->render('homepage.html.twig', [
+                'questions' => $questions,
+                'newQuestions' => $newQuestions,
+                'form' => $form->createView(),
+                'searched' => $data['searchbar'],
+                'searching' => false
+            ]);
+        }
     }
 
 
@@ -132,18 +231,16 @@ class QuestionController extends AbstractController
      */
     public function searchQuestion(Request $request){
 
-        $request = $this->get('request_stack')->getMasterRequest();
+        $data = [
+            "searchbar" => "default"
+        ];
+
+        // $request = $this->get('request_stack')->getMasterRequest();
 
         $defaultData = array('message' => 'Type your message here');
-        /*
-        $form = $this->createFormBuilder('form', 'searchbarform', $defaultData)
-            ->add('searchbar', TextType::class)
-            ->add('send', SubmitType::class)
-            ->getForm();
-        */
+
         $form = $this->createFormBuilder($defaultData)
-            ->add('searchbar', TextType::class)
-            ->add('send', SubmitType::class)
+            ->add('searchtext', TextType::class)
             ->getForm();
 
         $form->handleRequest($request);
@@ -152,7 +249,8 @@ class QuestionController extends AbstractController
 
                 $data = $form->getData();
 
-                $searchedquestion = $data["searchbar"];
+
+                $searchedquestion = $data["searchtext"];
 
                 $repository = $this->getDoctrine()->getRepository(Question::class);
 
@@ -161,26 +259,40 @@ class QuestionController extends AbstractController
                     $searchedquestion = "*";
                 }
 
+                $questions = $repository-> findForSearchbar($searchedquestion);
 
 
+                // return $this->render('question/listSearchedQuestions.html.twig', array(
 
-                return $this->render('question/listSearchedQuestions.html.twig', array(
+            return $this->render('homepage.html.twig', array(
                     'form' => $form->createView(),
+                    'searched' => $data['searchtext'],
+                    'questions' => $questions,
+                    'searching' => true
                 ));
 
-
-            // data is an array with "name", "email", and "message" keys
-
-
-
-
-             // return $this->redirectToRoute('searched_questions');
+            /*
+            return $this->redirectToRoute('app_homepage', array(
+                'form' => $form->createView(),
+                'searched' => $data['searchbar'],
+                'searching' => false
+            ));
+            */
 
         }
 
+
+
+
+
+        // TO-DO: IF THE PAGE IS REFRESHED, SOMETHINGS NEEDS TO BE DONE TO SHOW AN ACTUAL PAGE INSTEAD OF THE SEARCHBAR HTML TWIG
         return $this->render('question/searchbar.html.twig', array(
             'form' => $form->createView(),
+            'searched' => $data['searchbar'],
+            'searching' => false
         ));
+
+
     }
 
 
@@ -195,6 +307,48 @@ class QuestionController extends AbstractController
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_homepage');
         }
+
+
+        $question = new Question();
+
+        $form = $this->createForm(QuestionType::class, $question);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // $question = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $this->getUser();
+
+            $question->setUser($user);
+            $question->setResolved(false);
+            $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $question->setCreationDate($today);
+
+
+
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+
+        return $this->render('question/askQuestion.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+    }
+
+    /**
+     * @Route("/admin/delete/question", name="admin_delete_question")
+     */
+    public function adminDeleteQuestion(Request $request){
+
+
 
 
         $question = new Question();

@@ -1,4 +1,7 @@
 security:
+    role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         App\Entity\User:
@@ -53,5 +56,6 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
        - { path: ^/locked, roles: ROLE_USER }
+       - { path: ^/admin, roles: ROLE_ADMIN }
 
 

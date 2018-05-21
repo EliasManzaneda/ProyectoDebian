@@ -19,7 +19,7 @@ class UserController extends AbstractController
      */
     public function profile()
     {
-        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER') || !$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ) {
             return $this->redirectToRoute('app_homepage');
         }
 

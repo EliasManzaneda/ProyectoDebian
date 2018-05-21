@@ -22,7 +22,7 @@ class QuestionRepository extends ServiceEntityRepository
     public function findForHomepage(){
         $qb = $this->createQueryBuilder('q')
             ->leftJoin('q.user', 'u')
-            ->addOrderBy('q.creationDate', 'ASC')
+            ->addOrderBy('q.creationDate', 'DESC')
             ->addOrderBy('q.title', 'ASC')
             ->addOrderBy('u.username', 'ASC')
             ->getQuery();
@@ -31,6 +31,7 @@ class QuestionRepository extends ServiceEntityRepository
     }
 
     public function findForSearchbar($searchtext){
+        /*
         $qb = $this->createQueryBuilder('q')
             ->leftJoin('q.user', 'u')
             ->leftJoin('q.tags', 't')
@@ -43,8 +44,21 @@ class QuestionRepository extends ServiceEntityRepository
             ->addOrderBy('u.username', 'ASC')
             ->setParameter('searchtext', $searchtext)
             ->getQuery();
+        */
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.user', 'u')
+            ->leftJoin('q.tags', 't')
+            ->andWhere('q.title LIKE :searchtext OR q.text LIKE :searchtext OR t.name  LIKE :searchtext OR u.username LIKE :searchtext')
+            ->addOrderBy('q.creationDate', 'ASC')
+            ->addOrderBy('q.title', 'ASC')
+            ->addOrderBy('u.username', 'ASC')
+            ->setParameter('searchtext', $searchtext)
+            ->getQuery();
 
         return $qb->execute();
+
+
+
     }
 
     public function findForUserProfile($user){

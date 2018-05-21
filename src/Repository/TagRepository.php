@@ -19,6 +19,14 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+
+    public function findForAPI(){
+        $qb = $this->createQueryBuilder('t')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
 //    /**
 //     * @return Tag[] Returns an array of Tag objects
 //     */

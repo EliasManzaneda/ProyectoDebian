@@ -1,3 +1,7 @@
-{{ form_start(form, {'attr': { 'name':'searchbar' }})  }}
-{{ form_widget(form) }}
+{{ form_start(form, { 'attr': {'class': 'form-signin'}, 'action':path("search_question") }) }}
+
+{{ form_widget(form.searchtext, { 'attr': {'class': 'form-control', 'placeholder':'Texto de busqueda'} }) }}
+
+<button class="btn btn-lg btn-primary btn-block " type="submit">Buscar</button>
 {{ form_end(form) }}
+

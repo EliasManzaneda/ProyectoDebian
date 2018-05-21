@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Table(name="app_users")
@@ -21,12 +23,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"group1"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
+     * @Groups({"group1"})
      */
     private $username;
 
@@ -129,7 +133,16 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
+        /*
+        if(strtolower($this->username) == "admin"){
+            return array('ROLE_ADMIN');
+        }else{
+            return array('ROLE_USER');
+        }
+        */
+
         return array('ROLE_USER');
+
     }
 
     public function eraseCredentials()

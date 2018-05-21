@@ -2,19 +2,42 @@
 
 {% block body %}
 
-    {#
-    {% if adminpowers is defined and adminpowers == true %}
-        <p>adminpowers = ADMIN</p>
-    {% endif %}
 
-    {% if userroles is defined %}
+<div class="container">
+    <h1>ADMIN HOMEPAGE</h1>
 
-        {% for userrole in userroles %}
-            <p>userrole = {{ userrole }}</p>
-        {% endfor %}
-    {% endif %}
-    #}
+    <div class="row">
+        <div class="col-md-1 order-md-1"></div>
+        <div class="col-sm-12 order-md-2 col-md-10 ">
+            <p>TAGS</p>
+        </div>
 
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 order-md-1"></div>
+        <div class="col-sm-12 order-md-2 col-md-10 ">
+            <p>USERS</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 order-md-1"></div>
+        <div class="col-sm-12 order-md-2 col-md-10 ">
+            <p>QUESTIONS</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 order-md-1"></div>
+        <div class="col-sm-12 order-md-2 col-md-10 ">
+            <p>ANSWERS</p>
+        </div>
+
+    </div>
+</div>
 
     {% if searching is defined and searching == true %}
 
@@ -55,6 +78,7 @@
                                                                 <br>
                                                 {% for tag in question.tags %}
                                                     <span class="questionTag">{{ tag.name }}</span>
+                                                    <button id="{{ question.id }}">DELETE</button>
                                                 {% endfor %}
                                             </span>
                                         </div>
