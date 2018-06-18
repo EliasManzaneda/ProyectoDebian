@@ -30,6 +30,10 @@ class QuestionRepository extends ServiceEntityRepository
         return $qb->execute();
     }
 
+    /**
+     * @param $searchtext
+     * @return mixed
+     */
     public function findForSearchbar($searchtext){
         /*
         $qb = $this->createQueryBuilder('q')
@@ -61,6 +65,10 @@ class QuestionRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @param $user
+     * @return mixed
+     */
     public function findForUserProfile($user){
         $qb = $this->createQueryBuilder('q')
             ->leftJoin('q.user', 'u')

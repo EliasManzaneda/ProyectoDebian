@@ -260,6 +260,9 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.7.0"
     },
@@ -306,7 +309,7 @@
         "version": "v4.0.8"
     },
     "symfony/templating": {
-        "version": "v4.0.9"
+        "version": "v4.0.11"
     },
     "symfony/translation": {
         "version": "3.3",

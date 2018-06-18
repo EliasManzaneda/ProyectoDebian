@@ -1,11 +1,19 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $fa-font-path: "~font-awesome/fonts";
 
-$bg-color-day: #F7F7F7;
-$bg_div-color-day: #FFFFFF;
+$bg-color-day: #f4f7f6;
+// $bg_div-color-day: #FFFFFF;
 // $bg_navbar-color-day: #126DF9;
-$bg_navbar-color-day: #6B9080;
-$font-color-day: 242729;
+
+$bg_div-color-day: #ffffff;
+$bg_div-color-border-day: #ffffff;
+$bg_navbar-color-day: #89bdd3;
+// $bg_navbar-color-day: #6B9080;
+// $font-color-day: 242729;
+$font-color-day: #202121;
+$font-color-inverse-day: #ffffff;
+$bg_buttoncolor-day: #49c5b6;
+// 202121
 
 
 body {
@@ -15,6 +23,7 @@ body {
   background-color: $bg-color-day;
   min-height: 45rem;
   padding-bottom: 80px;
+  color: $font-color-day !important;
 }
 
 h1, h2, h3, h4, h5{
@@ -22,6 +31,42 @@ h1, h2, h3, h4, h5{
 }
 
 html {height:100%}
+
+.customcontainer h1, .customcontainer h2, .customcontainer h3, .customcontainer h4, .customcontainer h5{
+  color: $font-color-day !important;
+}
+.customcontainer p{
+  color: $font-color-day !important;
+}
+.customcontainer button{
+  color: $font-color-inverse-day !important;
+  background-color: $bg_buttoncolor-day!important;
+}
+.customcontainer input{
+  color: $font-color-day !important;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    $font-color-day !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    $font-color-day !important;
+  opacity:  1 !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    $font-color-day !important;
+  opacity:  1 !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    $font-color-day !important;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    $font-color-day !important;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+  color:    $font-color-day !important;
+}
+
 
 /* NAVIGATION */
 
@@ -50,13 +95,95 @@ html {height:100%}
 }
 
 
+.customnavbar{
+  background-color: $bg-color-day !important;
+
+  border-top: 1px solid $bg-color-day !important;
+  border-left: 1px solid $bg-color-day !important;
+  border-right: 1px solid $bg-color-day !important;
+  border-bottom: 1px solid black !important;
+
+  color: $font-color-day !important;
+
+  border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+
+  font-size: 13px !important;
+  font-weight: 400 !important;
+
+  // display: inline-block !important;
+  // border: 2px solid yellow;
+  // float: left;
+
+}
+.customnavbar input{
+  // display: inline-block !important;
+  // border: 2px solid red;
+}
+.custombutton{
+  background-color: $bg_buttoncolor-day !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+
+  // display: inline-block !important;
+   // border: 1px solid $bg_buttoncolor-day;
+
+
+}
+.navbarsearch{
+  width: 100% !important;
+
+}
+.navbarinputgroup{
+  border: 1px solid red;
+
+}
+
+.navbarform{
+  border: 1px solid yellow;
+  // width: 100% !important;
+}
+/*
+.navbarform{
+  display: inline-block !important;
+}
+
+.navbarbutton{
+  display: inline-block !important;
+}
+*/
+
 /* LOGIN REGISTRATION */
 
 .form-container {
+  /*
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  */
+  border-left: 1px solid $bg_div-color-border-day;
+  border-right: 1px solid $bg_div-color-border-day;
+  border-bottom: 1px solid $bg_div-color-border-day;
   background-color: $bg_div-color-day;
+}
+
+
+.askquestion{
+  min-height:200px !important;
+  width: 100% !important;
+}
+.selectasktags input{
+  margin: 5px;
+}
+.selectasktags label{
+  margin: 5px;
+}
+
+.divasktags{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .inactive {
@@ -98,7 +225,7 @@ html {height:100%}
 /* ARTICLES */
 
 .main-article {
-  border: 2px solid #efefee;
+  border: 2px solid $bg_div-color-border-day;
   // background-color: $bg_div-color-day;
   background-color: $bg_div-color-day;
   border-top-left-radius: 6px;
@@ -119,6 +246,8 @@ html {height:100%}
   border-bottom-left-radius: 5px;
   background-color: $bg_div-color-day;
 
+  list-style-type: none !important;
+
   //padding-bottom: 20px;
   //padding-top: 20px;
 }
@@ -131,7 +260,9 @@ html {height:100%}
 .main-article-link:hover {
   text-decoration: none;
   color: #000;
+  list-style-type: none !important;
 }
+
 
 .article-title {
   min-width: 300px;
@@ -251,18 +382,35 @@ html {height:100%}
 
 
 /* FOOTER */
+.contenido{
+  min-height: calc(100vh - 70px);
+}
 
 .footer {
+
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px; /* Set the fixed height of the footer here */
-  line-height: 60px; /* Vertically center the text there */
+  height: 60px;
+  line-height: 60px;
   background-color: $font-color-day;
   margin-top: 10px;
+
+
+
+
 }
-
-
+.footercontainer{
+  background-color: $font-color-day;
+}
+.navavatar{
+  border: none !important;
+}
+.navavatarusername{
+  margin-right: 5px;
+  // border: 1px solid red;
+  color: $font-color-inverse-day;
+}
 
 .article-container .article-title {
 
@@ -270,8 +418,27 @@ html {height:100%}
   padding-bottom: 8px;
   color: #333;
 }
+
+.articlequestion{
+  transition: none !important;
+  text-decoration: none !important;
+}
+.articlequestion:hover{
+  transition: none !important;
+  text-decoration: none !important;
+}
+
 .questionusername, .questiontime, .questiontitle{
   color: #117FF1;
+}
+.questiontitle span{
+
+
+
+}
+.questiontext span{
+
+
 }
 
 .newquestions {
@@ -293,4 +460,26 @@ html {height:100%}
 .questionTag{
   background-color: #E0EAF1;
   padding: 5px;
+}
+
+.customcontainer{
+  // background-color: #c9c9c9;
+  // color: #e3e3e3;
+}
+
+
+.avatarpregunta{
+  margin-left: 5px !important;
+  /*
+  border: 1px solid red !important;
+  background-color: red !important;
+  color: red !important;
+  */
+}
+
+.croptext{
+  overflow:hidden !important;
+  white-space: nowrap !important; /* Don't forget this one */
+  text-overflow: ellipsis !important;
+  max-width:550px;
 }

@@ -8,11 +8,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends Controller
@@ -22,6 +24,8 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+
+
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_homepage');
         }
@@ -38,7 +42,15 @@ class RegistrationController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-            $user->$roles =
+            $repository = $this->getDoctrine()->getRepository(Role::class);
+            // $user->addRole($repository->findRoleByName("ROLE_USER"));
+            $defaultRole = $repository->findOneBy(['name' => 'ROLE_USER']);
+            $user->addRole($defaultRole);
+            $user->setPoints(0);
+            $user->setBanStrikes(0);
+            // $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $registerDate = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $user->setRegisterDate($registerDate);
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
@@ -47,6 +59,10 @@ class RegistrationController extends Controller
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->container->get('security.token_storage')->setToken($token);
+            $this->container->get('session')->set('_security_main', serialize($token));
 
             return $this->redirectToRoute('app_homepage');
         }

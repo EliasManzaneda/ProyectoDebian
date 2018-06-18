@@ -1,0 +1,3 @@
+user.username.not_blank: El nombre de usuario no puede dejarse en blanco.
+user.username.min_message: El nombre de usuario debe de contener al menos 3 caracteres.
+user.username.max_message: El nombre de usuario debe de contener menos de 30 caracteres.

@@ -3,7 +3,7 @@
 {% block body %}
 
 
-    <div class="container">
+    <div class="container customcontainer">
         <div class="row">
 
             <div class="col-md-1 order-md-1"></div>
@@ -19,8 +19,8 @@
 
 
                             <form class="form-signin" action="{{ path('login') }}" method="post">
-                                <h2 class="form-signin-heading">Already registered? Sign In!</h2>
-                                <p>Don't have an account yet? <a href="{{ path('user_registration') }}">Sign Up!</a></p>
+                                <h2 class="form-signin-heading customtitle">¿Ya registrado? ¡Entra ahora!</h2>
+                                <p>¿Aún no tienes una cuenta? <a href="{{ path('user_registration') }}">¡Únete!</a></p>
 
 
                                 <label for="username" class="sr-only">Username or Email</label>
@@ -29,7 +29,7 @@
                                 <label for="password"  class="sr-only">Password</label>
                                 <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required/>
 
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                                <button class="btn btn-lg btn-primary btn-block custombutton" type="submit">Entrar</button>
                             </form>
 
 

@@ -37,6 +37,11 @@ class Answer
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $points;
+
     public function getId()
     {
         return $this->id;
@@ -74,6 +79,18 @@ class Answer
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }

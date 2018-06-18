@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <div class="container">
+    <div class="container customcontainer">
         <div class="row">
 
 
@@ -16,15 +16,22 @@
                     <div class="main-article mb-5 pb-5">
 
                         <div class="container">
-                                {{ form_start(form, { 'attr': {'class': 'form-signin'} }) }}
-                                <h2 class="form-signin-heading">Create your account right now!</h2>
-                                <p>It's free, it takes only a miute, and unlocks all of our website features.</p>
-                                {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder':'Username'} }) }}
-                                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Email address'} }) }}
-                                {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Password'} }) }}
-                                {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Repeat Password'} }) }}
-                                <button class="btn btn-lg btn-primary btn-block signinbtn" type="submit">Sign Up!</button>
-                                {{ form_end(form) }}
+                            {{ form_start(form, { 'attr': {'class': 'form-signin'} }) }}
+                            <h2 class="form-signin-heading">¡Crea tu cuenta ahora!</h2>
+                            <p>Un minuto y podrás usar todas las funcionalidades.</p>
+                            {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder':'Usuario'} }) }}
+                            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Correo electrónico'} }) }}
+                            {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Contraseña'} }) }}
+                            {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Repite la contraseña'} }) }}
+                            <button class="btn btn-lg btn-primary btn-block signinbtn custombutton" type="submit">¡Registrame!</button>
+
+                            {{ form_errors(form.username) }}
+                            {{ form_errors(form.email) }}
+                            {{ form_errors(form.plainPassword.first) }}
+                            {{ form_errors(form.plainPassword.second) }}
+
+
+                            {{ form_end(form) }}
                         </div>
 
                     </div>

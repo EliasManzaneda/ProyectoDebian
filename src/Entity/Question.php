@@ -59,6 +59,11 @@ class Question
      */
     private $creationDate;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $points;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -185,6 +190,18 @@ class Question
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }

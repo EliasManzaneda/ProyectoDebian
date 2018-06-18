@@ -68,7 +68,7 @@ class QuestionController extends AbstractController
         $questions = $repository->findForHomepage();
 
         // $newQuestions = $questions;
-        $newQuestions= array_slice($questions, -3);
+        $newQuestions = array_slice($questions, -3);
 
         // SEARCHBAR
         $data = [
@@ -76,7 +76,22 @@ class QuestionController extends AbstractController
         ];
 
         $user = $this->getUser();
-        $username = $user->getUsername();
+        $username = null;
+        $userrole = null;
+        if ($user != null) {
+            $username = $user->getUsername();
+            $userrole = $user->getRoles();
+            /*
+            if($userrole->contains("admin")){
+                $userrole = "admin";
+            }elseif ($userrole->contains("user")){
+                $userrole = "user";
+            }else{
+                $userrole = "none";
+            }
+            */
+        }
+
 
         $defaultData = array('message' => 'Type your message here');
 
@@ -87,7 +102,7 @@ class QuestionController extends AbstractController
         $form->handleRequest($request);
 
 
-
+        // SEARCHBAR
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
@@ -98,71 +113,47 @@ class QuestionController extends AbstractController
             $repository = $this->getDoctrine()->getRepository(Question::class);
 
 
-            if(empty($searchedquestion)){
+            if (empty($searchedquestion)) {
                 $searchedquestion = "*";
             }
 
-            $questions = $repository-> findForSearchbar($searchedquestion);
+            $questions = $repository->findForSearchbar($searchedquestion);
 
 
-            // return $this->render('question/listSearchedQuestions.html.twig', array(
-
-
-
-
-            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || $username = "administrator") {
-                // return $this->redirectToRoute('admin_homepage');
-
-                return $this->render('adminhomepage.html.twig', array(
-                    'form' => $form->createView(),
-                    'searched' => $data['searchtext'],
+            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                return $this->render('adminhomepage.html.twig', [
                     'questions' => $questions,
-                    'searching' => true,
-                    'adminpowers' => true,
-                ));
-
+                    'newQuestions' => $newQuestions,
+                    'form' => $form->createView(),
+                    'searched' => $data['searchbar'],
+                    'searching' => false
+                ]);
             }else{
                 return $this->render('homepage.html.twig', [
                     'questions' => $questions,
                     'newQuestions' => $newQuestions,
                     'form' => $form->createView(),
                     'searched' => $data['searchbar'],
-                    'searching' => false,
+                    'searching' => false
                 ]);
             }
+
+
+
+
 
         }
 
 
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || $username = "administrator") {
-            // return $this->redirectToRoute('admin_homepage');
-
-            $user = $this->getUser();
-            $userrole = $user->getRoles();
-            return $this->render('adminhomepage.html.twig', array(
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->render('adminhomepage.html.twig', [
+                'questions' => $questions,
+                'newQuestions' => $newQuestions,
                 'form' => $form->createView(),
                 'searched' => $data['searchbar'],
-                'questions' => $questions,
-                'searching' => true,
-                'adminpowers' => true,
-                'userroles' => $userrole,
-            ));
-
-        }else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER') ) {
-            // return $this->redirectToRoute('admin_homepage');
-            $user = $this->getUser();
-            $userrole = $user->getRoles();
-            return $this->render('homepage.html.twig', array(
-                'form' => $form->createView(),
-                'searched' => $data['searchbar'],
-                'questions' => $questions,
-                'searching' => true,
-                'adminpowers' => false,
-                'userroles' => $userrole,
-            ));
-
+                'searching' => false
+            ]);
         }else{
-
             return $this->render('homepage.html.twig', [
                 'questions' => $questions,
                 'newQuestions' => $newQuestions,
@@ -171,6 +162,11 @@ class QuestionController extends AbstractController
                 'searching' => false
             ]);
         }
+
+
+
+
+
     }
 
 
@@ -259,7 +255,7 @@ class QuestionController extends AbstractController
                     $searchedquestion = "*";
                 }
 
-                $questions = $repository-> findForSearchbar($searchedquestion);
+                $questions = $repository->findForSearchbar($searchedquestion);
 
 
                 // return $this->render('question/listSearchedQuestions.html.twig', array(
@@ -327,6 +323,7 @@ class QuestionController extends AbstractController
             $question->setResolved(false);
             $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
             $question->setCreationDate($today);
+            $question->setPoints(0);
 
 
 

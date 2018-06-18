@@ -12,6 +12,7 @@ use App\Entity\User;
 use App\Entity\Question;
 use App\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,11 +29,12 @@ class QuestionType extends AbstractType
 
         $builder
             ->add('_title', TextType::class)
-            ->add('_text', TextType::class)
+            ->add('_text', TextareaType::class)
             ->add('_tags', EntityType::class, array(
                 'class'        => Tag::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'expanded' => true
             ))
             ->add('save', SubmitType::class, array('label' => 'Ask Question'))
         ;

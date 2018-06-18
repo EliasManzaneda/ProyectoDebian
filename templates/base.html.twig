@@ -1,14 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
     <head>
-        <title>{% block title %}Welcome to Desbordamiento de Pila{% endblock %}</title>
+        <title>{% block title %}Bienvenido a Desbordamiento de Pila{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         {% block stylesheets %}
 
+
+
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
 
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
             <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -25,73 +28,80 @@
 
 
         {% block navbar %}
-            <nav class="navbar navbar-expand-lg navbar-dark navbar-bg mb-5">
-                <a style="margin-left: 75px;" class="navbar-brand space-brand" href="{{ path("app_homepage") }}">Desbordamiento de Pila</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a style="color: #fff;" class="nav-link" href="#">Questions</a>
-                        </li>
-                        <!--
-                        <li class="nav-item">
-                            <a style="color: #fff;" class="nav-link" href="#">Weather</a>
-                        </li>
-                        -->
-                    </ul>
-                    {#
-                    {{ render(controller(
-                        'App\\Controller\\QuestionController::searchQuestion'
-                    )) }}
-                    #}
 
-                    {% if searching is defined %}
-                    {{ form_start(form, { 'attr': {'class': 'form-signin'}, 'action':path("app_homepage") }) }}
-
-                    {{ form_widget(form.searchtext, { 'attr': {'class': 'form-control', 'placeholder':'Texto de busqueda'} }) }}
-
-                    <button class="btn btn-lg btn-primary btn-block " type="submit">Buscar</button>
-                    {{ form_end(form) }}
-                    {% endif %}
-
-
-                    {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')%}
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown" style="margin-right: 75px;">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img class="nav-profile-img rounded-circle" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{ path("user_profile") }}">My Profile</a>
-                                    <a class="dropdown-item" href="{{ path("list_questions") }}">My Questions</a>
-                                    <a class="dropdown-item" href="{{ path("new_question") }}">Ask Question</a>
-                                    <a class="dropdown-item" href="{{ path("logout") }}">Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                        <ul class="navbar-nav ml-auto">
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-bg mb-5">
+                    <a class="navbar-brand space-brand" href="{{ path("app_homepage") }}">Desbordamiento de Pila</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a style="color: #fff;" class="nav-link" href="{{ path("login") }}">Log In</a>
+                                <a style="color: #fff;" class="nav-link" href="#{{ path("search_question") }}">Preguntas</a>
                             </li>
-                            <li class="nav-item btn-topbar-primary">
-                                <a style="color: #fff;" class="nav-link" href="{{ path("user_registration") }}">Sign Up</a>
-                            </li>
-                        </ul>
-                    {% endif %}
 
-                </div>
-            </nav>
-        {% endblock %}{% block body %}
+                        </ul>
+
+
+                        {% if searching is defined %}
+                            {{ form_start(form, { 'attr': {'class': 'navbar-form  navbarform'}, 'action':path("app_homepage") }) }}
+                            <div class="input-group navbarinputgroup">
+
+
+                                {{ form_widget(form.searchtext, { 'attr': {'class': 'form-control, navbarsearch', 'placeholder':'Texto de busqueda'} }) }}
+                                <div class="input-group-btn">
+                                    <button class="btn btn-lg btn-primary btn-block custombutton" type="submit">Buscar</button>
+                                </div>
+
+                            </div>
+                            {{ form_end(form) }}
+                        {% endif %}
+
+
+
+                        {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')%}
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown" style="margin-right: 75px;">
+                                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="navavatarusername">{{ app.user.username }} </span><img class="nav-profile-img navavatar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ path("user_profile") }}">Mi Perfil</a>
+                                        <a class="dropdown-item" href="{{ path("list_questions") }}">Mis Preguntas</a>
+                                        <a class="dropdown-item" href="{{ path("new_question") }}">Preguntar</a>
+                                        <a class="dropdown-item" href="{{ path("logout") }}">Salir</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a style="color: #fff;" class="nav-link" href="{{ path("login") }}">Entrar</a>
+                                </li>
+                                <li class="nav-item btn-topbar-primary">
+                                    <a style="color: #fff;" class="nav-link" href="{{ path("user_registration") }}">Registrarse</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+
+                    </div>
+                </nav>
 
 
 
         {% endblock %}
 
+        <div class="contenido">
+            {% block body %}
+
+
+
+            {% endblock %}
+        </div>
+
+
         <footer class="footer">
-            <div class="container text-center">
+            <div class="container text-center footercontainer">
                 <span class="text-muted">Desbordamiento de Pila - Elías Manzaneda Santamaría - 2018</span>
             </div>
         </footer>

@@ -10,6 +10,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+
 
 /**
  * @ORM\Table(name="app_users")
@@ -29,8 +33,14 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="user.username.not_blank")
      * @Groups({"group1"})
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "user.username.min_message",
+     *      maxMessage = "user.username.max_message",
+     * )
      */
     private $username;
 
@@ -75,11 +85,51 @@ class User implements UserInterface, \Serializable
      */
     private $answers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
+     */
+    private $roles;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $points;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Achievement", inversedBy="users")
+     */
+    private $achievements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Title", inversedBy="users")
+     */
+    private $titles;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $registerDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $banDate;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $banStrikes;
+
+
+
     public function __construct()
     {
         $this->isActive = true;
         $this->questions = new ArrayCollection();
         $this->answers = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
+        $this->titles = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -141,7 +191,15 @@ class User implements UserInterface, \Serializable
         }
         */
 
-        return array('ROLE_USER');
+        // return array('ROLE_USER');
+        // return $this->roles;-
+
+        $rolesArray = [];
+        foreach($this->roles as $role){
+            array_push($rolesArray, $role->getName());
+        }
+        return $rolesArray;
+        // return $this->roles;
 
     }
 
@@ -234,4 +292,148 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+            $role->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+            $role->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Achievement[]
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievement $achievement): self
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements[] = $achievement;
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievement $achievement): self
+    {
+        if ($this->achievements->contains($achievement)) {
+            $this->achievements->removeElement($achievement);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Title[]
+     */
+    public function getTitles(): Collection
+    {
+        return $this->titles;
+    }
+
+    public function addTitle(Title $title): self
+    {
+        if (!$this->titles->contains($title)) {
+            $this->titles[] = $title;
+        }
+
+        return $this;
+    }
+
+    public function removeTitle(Title $title): self
+    {
+        if ($this->titles->contains($title)) {
+            $this->titles->removeElement($title);
+        }
+
+        return $this;
+    }
+
+    public function user(ValidatorInterface $validator)
+    {
+        $author = new User();
+
+        // ... do something to the $author object
+
+        $errors = $validator->validate($author);
+
+        if (count($errors) > 0) {
+            /*
+             * Uses a __toString method on the $errors variable which is a
+             * ConstraintViolationList object. This gives us a nice string
+             * for debugging.
+             */
+            $errorsString = (string)$errors;
+
+            return new Response($errorsString);
+        }
+
+        return new Response('The author is valid! Yes!');
+
+    }
+
+    public function getRegisterDate(): ?\DateTimeInterface
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate(\DateTimeInterface $registerDate): self
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    public function getBanDate(): ?\DateTimeInterface
+    {
+        return $this->banDate;
+    }
+
+    public function setBanDate(?\DateTimeInterface $banDate): self
+    {
+        $this->banDate = $banDate;
+
+        return $this;
+    }
+
+    public function getBanStrikes(): ?int
+    {
+        return $this->banStrikes;
+    }
+
+    public function setBanStrikes(int $banStrikes): self
+    {
+        $this->banStrikes = $banStrikes;
+
+        return $this;
+    }
+
 }
