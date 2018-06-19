@@ -49,6 +49,7 @@ class QuestionRepository extends ServiceEntityRepository
             ->setParameter('searchtext', $searchtext)
             ->getQuery();
         */
+        $searchtext = "%".$searchtext."%";
         $qb = $this->createQueryBuilder('q')
             ->leftJoin('q.user', 'u')
             ->leftJoin('q.tags', 't')

@@ -131,18 +131,37 @@ html {height:100%}
    // border: 1px solid $bg_buttoncolor-day;
 
 
+  // display: inline !important;
+
+
 }
 .navbarsearch{
   width: 100% !important;
+  /*
+  display: -moz-inline-block !important;
+  display: inline-block !important;
+  */
+
 
 }
+.inputgroupsearch{
+  /*
+  display: -moz-inline-block !important;
+  display: inline-block !important;
+  */
+}
 .navbarinputgroup{
-  border: 1px solid red;
+  // border: 1px solid red;
+  /*
+  display: -moz-inline-block !important;
+  display: inline-block !important;
+  */
+
 
 }
 
 .navbarform{
-  border: 1px solid yellow;
+  // border: 1px solid yellow;
   // width: 100% !important;
 }
 /*
@@ -482,4 +501,59 @@ html {height:100%}
   white-space: nowrap !important; /* Don't forget this one */
   text-overflow: ellipsis !important;
   max-width:550px;
+}
+
+.articlefullcontainer{
+  padding-right: 10px;
+}
+
+.questioningAnswerText{
+  color: $bg_navbar-color-day;
+}
+
+.answeringform, .questiondivAnswering{
+  width: 100%;
+}
+
+.answerauthor{
+  display: inline !important;
+}
+.scoreText{
+  display: inline !important;
+  color: $bg_navbar-color-day;
+  margin-left: 52px;
+  margin-bottom: -2px;
+
+}
+.buttonScore{
+  background-color: $bg_navbar-color-day;
+  margin-left: 40px;
+  display: inline !important;
+  color: $font-color-inverse-day;
+}
+.lowerbuttonscore{
+  margin-bottom: 10px;
+}
+
+.answeravathar{
+  padding: 10px;
+  display: inline !important;
+  // border: 1px solid yellow;
+
+  margin-left: 10px;
+  margin-top: 10px;
+
+}
+
+.scoringanswer{
+  display: inline !important;
+
+
+  // border: 1px solid green;
+  // border: 1px solid red;
+
+}
+
+.leftanswerplace{
+  // border: 1px solid red;
 }

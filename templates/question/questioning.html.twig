@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <div  class="articlequestion articlefull">
+                <div class="article-container my-1 articlefullcontainer">
+                    <!-- question info-->
+                    <div class="row">
+                        <div class="col-2 leftanswerplace">
+                            <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                        </div>
+
+                        <div class="avatarpregunta col-8">
+                            <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                <br>
+                                <div class="align-left scoringanswer">
+                                    <div class="questiontitle" >
+                                        <p>{{ question.title }}</p>
+                                    </div>
+                                    <div class="align-left ">
+                                        <div class="questiontext">
+                                            <span>{{ question.text }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                {% for tag in question.tags %}
+                                    <span class="questionTag">{{ tag.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- question user info-->
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="btn questioningAnswerText buttonScore" >&#9650;</button><p class="scoreText">{{ question.points }}</p><button  class="btn buttonScore lowerbuttonscore" >&#9660;</button>
+                        </div>
+                        <div class="col-8">
+                            <hr>
+                            <p class="answerauthor">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.user.username }} </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- answer form -->
+                <div  class="articlequestion articlefull">
+                    <div class="article-container my-1 articlefullcontainer">
+                        <div class="avatarpregunta">
+                            <div class="article-title d-inline-block pl-3 align-middle questiondiv questiondivAnswering">
+                                <form  class="form-signin answeringform" action="{{ path('article_show', { questionid: question.id}) }}" method="post">
+                                    {{ form_row(form._token) }}
+                                    {{ form_errors(form._text) }}
+                                    {{ form_widget(form._text, { 'attr': {'class': 'form-control, askquestion', 'placeholder':'Escribe aquí tu respuesta.'} }) }}
+                                    <button class="btn btn-lg btn-primary btn-block custombutton" type="submit">Responder</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr>
+
+                {% if otherAnswers|length <= 0 %}
+                    <div  class="articlequestion articlefull">
+                        <div class="article-container my-1 articlefullcontainer">
+                            <div class="avatarpregunta">
+                                <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                    <p>Esta pregunta no tiene respuestas todavia.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% else %}
+                {% for otherAnswer in otherAnswers %}
+                    <!-- Answer start info-->
+                    <div  class="articlequestion articlefull">
+                        <div class="article-container my-1 articlefullcontainer">
+                            <div class="row">
+                                <div class="col-2 leftanswerplace">
+                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                </div>
+                                <div class="avatarpregunta col-8">
+                                    <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                        <br>
+                                        <div class="align-left scoringanswer">
+                                            <div class="">
+                                                <span>{{ otherAnswer.text }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Answer Author info-->
+                            <div class="row">
+                                <div class="col-2">
+                                    <button class="btn questioningAnswerText buttonScore" >&#9650;</button><p class="scoreText">{{ question.points }}</p><button  class="btn buttonScore lowerbuttonscore" >&#9660;</button>
+                                </div>
+                                <div class="col-8">
+                                    <hr>
+                                    <p class="answerauthor">{{ otherAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ otherAnswer.user.username }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                {% endif %}
+        </div>
+
+        <div class="col-sm-12 col-md-4 text-center">
+            <div class="ad-space mx-auto mt-1 pb-2 pt-2">
+                <p><span class="advertisement-text">Preguntas populares</span></p>
+                {% for newQuestion in newQuestions %}
+                <div class="newquestions">
+                    <p>
+                        {{  newQuestion.title }}
+                        <br>
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
+

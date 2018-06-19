@@ -11,6 +11,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Question;
+use App\Entity\Answer;
+use Psr\Log\LoggerInterface;
 use function Sodium\add;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +23,7 @@ use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\QuestionType;
+use App\Form\AnswerType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 use Symfony\Component\Validator\Constraints\Length;
@@ -31,10 +34,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/news/{slug}", name="article_show")
+     * @Route("/question/{questionid}", name="article_show")
      */
-    public function show($slug)
+    public function show(Request $request, $questionid)
     {
+        /*
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
             'Woohoo! I\'m going on an all-asteroid diet!',
@@ -44,6 +48,96 @@ class QuestionController extends AbstractController
             'title' => ucwords(str_replace('-', ' ', $slug)),
             'comments' => $comments,
         ]);
+        */
+
+
+
+        /*
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+        $question = $repository->findOneBy(array('id' => $questionid));
+
+        $questions = $repository->findForHomepage();
+        $newQuestions = array_slice($questions, -3);
+
+        return $this->render('question/questioning.html.twig', [
+            'question' => $question,
+            'newQuestions' => $newQuestions,
+        ]);
+        */
+        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
+
+
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+        $questions = $repository->findForHomepage();
+        $newQuestions = array_slice($questions, -3);
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+
+        $repository = $this->getDoctrine()->getRepository(Answer::class);
+        $otherAnswers = $repository->findBy(array('question' => $questionid));
+
+
+        $answer = new Answer();
+
+        $form = $this->createForm(AnswerType::class, $answer);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // $question = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $this->getUser();
+
+            if (strlen($answer->getText()) >= 1024) {
+                $modifyAnswer = $answer->getQuestion();
+                $maxLength = 1024;
+                $modifiedAnswer = substr($modifyAnswer, 0, $maxLength);
+                $answer->setText($modifiedAnswer);
+            }
+
+            $answer->setUser($user);
+            $answer->setQuestion($originalQuestion);
+
+            $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $answer->setCreationDate($today);
+            $answer->setPoints(0);
+
+
+
+            $entityManager->persist($answer);
+            $entityManager->flush();
+
+            /*
+            return $this->redirectToRoute('app_homepage');
+            */
+
+
+            $repository = $this->getDoctrine()->getRepository(Answer::class);
+            $otherAnswers = $repository->findBy(array('question' => $questionid));
+
+            return $this->render('question/questioning.html.twig', [
+                'form' => $form->createView(),
+                'question' => $originalQuestion,
+                'newQuestions' => $newQuestions,
+                'otherAnswers' => $otherAnswers,
+                "answering" => "YES."
+            ]);
+        }
+
+        return $this->render('question/questioning.html.twig', array(
+            'form' => $form->createView(),
+            'question' => $originalQuestion,
+            'newQuestions' => $newQuestions,
+            'otherAnswers' => $otherAnswers,
+            "answering" => "NO."
+        ));
     }
 
 
@@ -114,7 +208,7 @@ class QuestionController extends AbstractController
 
 
             if (empty($searchedquestion)) {
-                $searchedquestion = "*";
+                $searchedquestion = "%";
             }
 
             $questions = $repository->findForSearchbar($searchedquestion);
@@ -133,7 +227,7 @@ class QuestionController extends AbstractController
                     'questions' => $questions,
                     'newQuestions' => $newQuestions,
                     'form' => $form->createView(),
-                    'searched' => $data['searchbar'],
+                    'searched' => $data['searchtext'],
                     'searching' => false
                 ]);
             }
@@ -380,5 +474,16 @@ class QuestionController extends AbstractController
             'form' => $form->createView(),
         ));
 
+    }
+
+
+    /**
+     * @Route("/question/{slug}/score", name="question_score", methods={"POST"})
+     */
+    public function toggleArticleHeart($slug, LoggerInterface $logger)
+    {
+        // TODO - actually heart/unheart the article!
+        $logger->info('Article is being hearted!');
+        return new JsonResponse(['hearts' => rand(5, 100)]);
     }
 }

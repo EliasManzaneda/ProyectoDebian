@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -20,7 +22,7 @@ class Answer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1024)
      * @Groups({"group1"})
      */
     private $text;
@@ -41,6 +43,18 @@ class Answer
      * @ORM\Column(type="integer")
      */
     private $points;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
+
+
+    public function __construct()
+    {
+        $this->scoredBy = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -91,6 +105,44 @@ class Answer
     public function setPoints(int $points): self
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getScoredBy(): Collection
+    {
+        return $this->scoredBy;
+    }
+
+    public function addScoredBy(User $scoredBy): self
+    {
+        if (!$this->scoredBy->contains($scoredBy)) {
+            $this->scoredBy[] = $scoredBy;
+        }
+
+        return $this;
+    }
+
+    public function removeScoredBy(User $scoredBy): self
+    {
+        if ($this->scoredBy->contains($scoredBy)) {
+            $this->scoredBy->removeElement($scoredBy);
+        }
 
         return $this;
     }

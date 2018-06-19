@@ -96,10 +96,12 @@
                 <div class="col-sm-12 col-md-8">
 
                 {% if questions|length <= 0 %}
-                    <p>No se encontraron preguntas para mostrar.</p>
+                    <p>No se encontraron preguntas para mostrar con el criterio "{{ searched }}"</p>
+
+
                 {% else %}
                     {% for question in questions %}
-                        <a  class="articlequestion" href="{{ path("article_show", { slug: "question"}) }}">
+                        <a  class="articlequestion" href="{{ path("article_show", { questionid: question.id}) }}">
                             <div class="article-container my-1">
 
 
@@ -146,7 +148,7 @@
 
                 <div class="col-sm-12 col-md-4 text-center">
                     <div class="ad-space mx-auto mt-1 pb-2 pt-2">
-                        <p><span class="advertisement-text">¡Nuevas preguntas!</span> </p>
+                        <p><span class="advertisement-text">Preguntas populares</span> </p>
 
 
                         {% for newQuestion in newQuestions %}

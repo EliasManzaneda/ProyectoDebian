@@ -22,13 +22,13 @@ class Question
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1024)
      * @Groups({"group1"})
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1024)
      * @Groups({"group1"})
      */
     private $text;
@@ -63,6 +63,11 @@ class Question
      * @ORM\Column(type="integer")
      */
     private $points;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Answer")
+     */
+    private $selectedAnswer;
 
     public function __construct()
     {
@@ -202,6 +207,18 @@ class Question
     public function setPoints(int $points): self
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getSelectedAnswer(): ?Answer
+    {
+        return $this->selectedAnswer;
+    }
+
+    public function setSelectedAnswer(?Answer $selectedAnswer): self
+    {
+        $this->selectedAnswer = $selectedAnswer;
 
         return $this;
     }
