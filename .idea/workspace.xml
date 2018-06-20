@@ -3,10 +3,49 @@
   <component name="ChangeListManager">
     <list default="true" id="6d1bca90-1213-4e0d-80a0-d1bf0526d432" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/assets/css/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.03c8e722.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.03efb7a0.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.06263842.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.06453100.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.07303bb5.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.07539b4b.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.0dd623ce.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.17da9c58.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/app.17da9c58.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.1abb9346.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.1abfe439.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.1c92d963.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.21305131.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.2be8aaff.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.322faae0.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.357dd0a2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.52e5ece5.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.5565270c.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.56a0906a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.58524046.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.5f5bfba3.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.5fd06e81.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.68862504.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.6f4301db.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.7f79e1f8.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.8ab56d13.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.8ac26a86.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.9429361b.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.9e85d01a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.ad5655c5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/app.ad5655c5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.ae225173.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.aefd341e.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.b9d58b7d.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.c4ceccbf.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.c5213d0e.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.cabfda30.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.da0f2e5f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.f494a0ab.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.f692396c.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.fbc9b7a6.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/build/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuestionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/questioning.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/questioning.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,45 +62,29 @@
       <file leaf-file-name="QuestionController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/QuestionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="181" column="60" selection-start-line="181" selection-start-column="60" selection-end-line="181" selection-end-column="60" />
+            <state relative-caret-position="586">
+              <caret line="503" selection-start-line="503" selection-end-line="503" />
               <folding>
-                <element signature="e#124#153#0#PHP" expanded="true" />
-                <element signature="e#12264#13179#0#PHP" />
-                <element signature="e#13283#13528#0#PHP" />
-                <element signature="e#13734#14949#0#PHP" />
-                <element signature="e#16245#18522#0#PHP" />
+                <element signature="e#124#151#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuestionRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repository/QuestionRepository.php">
+      <file leaf-file-name="listMyQuestions.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+            <state relative-caret-position="510">
+              <caret line="79" column="60" selection-start-line="79" selection-start-column="60" selection-end-line="79" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuestionScore.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/QuestionScore.php">
+      <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AnswerController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/AnswerController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1015">
-              <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
-              <folding>
-                <element signature="e#123#150#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="559">
+              <caret line="659" column="18" selection-start-line="659" selection-start-column="18" selection-end-line="659" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -70,41 +93,7 @@
         <entry file="file://$PROJECT_DIR$/templates/question/questioning.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="256">
-              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="253" />
-              <folding>
-                <element signature="e#12857#14493#0#HTML" />
-                <element signature="e#16529#18280#0#HTML" />
-                <element signature="e#18333#20147#0#HTML" />
-                <element signature="e#20210#22461#0#HTML" />
-                <element signature="e#22524#24424#0#HTML" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listMyQuestions.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="67" column="144" selection-start-line="67" selection-start-column="144" selection-end-line="67" selection-end-column="144" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Question.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Question.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2595">
-              <caret line="218" column="24" selection-start-line="218" selection-start-column="24" selection-end-line="218" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.scss" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="602" column="21" lean-forward="true" selection-start-line="602" selection-start-column="21" selection-end-line="602" selection-end-column="21" />
+              <caret line="157" column="118" selection-start-line="157" selection-start-column="118" selection-end-line="157" selection-end-column="118" />
             </state>
           </provider>
         </entry>
@@ -112,8 +101,17 @@
       <file leaf-file-name="homepage.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/homepage.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="122" column="51" lean-forward="true" selection-start-line="122" selection-start-column="51" selection-end-line="122" selection-end-column="51" />
+            <state relative-caret-position="165">
+              <caret line="104" column="28" selection-start-line="104" selection-start-column="28" selection-end-line="104" selection-end-column="118" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="72" column="92" selection-start-line="72" selection-start-column="80" selection-end-line="72" selection-end-column="92" />
             </state>
           </provider>
         </entry>
@@ -122,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>article-container</find>
-      <find>questiontitle</find>
       <find>articleq</find>
       <find>footer</find>
       <find>navava</find>
@@ -152,6 +148,8 @@
       <find>button</find>
       <find>resolved</find>
       <find>setscore</find>
+      <find>navbar</find>
+      <find>refre</find>
     </findStrings>
     <replaceStrings>
       <replace>build/images</replace>
@@ -207,15 +205,15 @@
         <option value="$PROJECT_DIR$/templates/question/askQuestion.html.twig" />
         <option value="$PROJECT_DIR$/src/Entity/Question.php" />
         <option value="$PROJECT_DIR$/src/Entity/Answer.php" />
-        <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/templates/security/login.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/AnswerController.php" />
         <option value="$PROJECT_DIR$/src/Repository/QuestionRepository.php" />
-        <option value="$PROJECT_DIR$/src/Controller/QuestionController.php" />
         <option value="$PROJECT_DIR$/templates/question/questioning.html.twig" />
         <option value="$PROJECT_DIR$/templates/homepage.html.twig" />
-        <option value="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" />
+        <option value="$PROJECT_DIR$/templates/base.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/QuestionController.php" />
         <option value="$PROJECT_DIR$/assets/css/app.scss" />
+        <option value="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" />
       </list>
     </option>
   </component>
@@ -334,6 +332,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -408,7 +407,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -474,20 +472,21 @@
       <workItem from="1529299238753" duration="13877000" />
       <workItem from="1529386391563" duration="16720000" />
       <workItem from="1529480445236" duration="22413000" />
+      <workItem from="1529518978733" duration="4274000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169907000" />
+    <option name="totallyTimeSpent" value="174181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="950" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15885417" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15885417" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5034722" side_tool="true" weight="0.19714965" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.5034722" side_tool="true" visible="true" weight="0.19714965" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -661,9 +660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="47" column="41" selection-start-line="47" selection-start-column="41" selection-end-line="47" selection-end-column="41" />
-          <folding>
-            <element signature="e#123#143#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -695,9 +691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-          <folding>
-            <element signature="e#116#136#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -705,22 +698,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="26" selection-start-line="26" selection-end-line="48" selection-end-column="5" />
-          <folding>
-            <element signature="e#117#137#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/question/show.html.twig">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1605">
           <caret line="116" selection-start-line="116" selection-end-line="116" />
-          <folding>
-            <element signature="e#30#78#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,13 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="131" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/AnswerScore.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -771,14 +748,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/QuestionScore.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="225">
           <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/AnswerController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1015">
+        <state relative-caret-position="1710">
           <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
           <folding>
             <element signature="e#123#150#0#PHP" expanded="true" />
@@ -791,21 +768,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Repository/QuestionRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="510">
           <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Question.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3225">
+          <caret line="218" column="24" selection-start-line="218" selection-start-column="24" selection-end-line="218" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/question/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/QuestionController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="181" column="60" selection-start-line="181" selection-start-column="60" selection-end-line="181" selection-end-column="60" />
+        <state relative-caret-position="586">
+          <caret line="503" selection-start-line="503" selection-end-line="503" />
           <folding>
-            <element signature="e#124#153#0#PHP" expanded="true" />
-            <element signature="e#12264#13179#0#PHP" />
-            <element signature="e#13283#13528#0#PHP" />
-            <element signature="e#13734#14949#0#PHP" />
-            <element signature="e#16245#18522#0#PHP" />
+            <element signature="e#124#151#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -813,42 +796,35 @@
     <entry file="file://$PROJECT_DIR$/templates/question/questioning.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="253" />
-          <folding>
-            <element signature="e#12857#14493#0#HTML" />
-            <element signature="e#16529#18280#0#HTML" />
-            <element signature="e#18333#20147#0#HTML" />
-            <element signature="e#20210#22461#0#HTML" />
-            <element signature="e#22524#24424#0#HTML" />
-          </folding>
+          <caret line="157" column="118" selection-start-line="157" selection-start-column="118" selection-end-line="157" selection-end-column="118" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Question.php">
+    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2595">
-          <caret line="218" column="24" selection-start-line="218" selection-start-column="24" selection-end-line="218" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="67" column="144" selection-start-line="67" selection-start-column="144" selection-end-line="67" selection-end-column="144" />
+        <state relative-caret-position="271">
+          <caret line="72" column="92" selection-start-line="72" selection-start-column="80" selection-end-line="72" selection-end-column="92" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/homepage.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="122" column="51" lean-forward="true" selection-start-line="122" selection-start-column="51" selection-end-line="122" selection-end-column="51" />
+        <state relative-caret-position="165">
+          <caret line="104" column="28" selection-start-line="104" selection-start-column="28" selection-end-line="104" selection-end-column="118" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="602" column="21" lean-forward="true" selection-start-line="602" selection-start-column="21" selection-end-line="602" selection-end-column="21" />
+        <state relative-caret-position="559">
+          <caret line="659" column="18" selection-start-line="659" selection-start-column="18" selection-end-line="659" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="79" column="60" selection-start-line="79" selection-start-column="60" selection-end-line="79" selection-end-column="60" />
         </state>
       </provider>
     </entry>

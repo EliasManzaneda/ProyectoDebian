@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\AnswerScore;
 use App\Entity\QuestionScore;
 use App\Entity\User;
 use App\Entity\Question;
@@ -491,6 +492,103 @@ class QuestionController extends AbstractController
         return $this->render('question/askQuestion.html.twig', array(
             'form' => $form->createView(),
         ));
+
+    }
+
+
+
+    /**
+     * @Route("/question/{questionid}/delete", name="question_delete")
+     */
+    public function deleteQuestion(Request $request, $questionid){
+
+
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+        $user = $this->getUser();
+        $status = "";
+
+
+        $repository = $this->getDoctrine()->getRepository(QuestionScore::class);
+        $questionScores = $repository->findBy(
+            ['question' => $originalQuestion]
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Answer::class);
+        $answers = $repository->findBy(
+            ['question' => $originalQuestion]
+        );
+
+
+        $repository = $this->getDoctrine()->getRepository(AnswerScore::class);
+
+
+        // Remove selectedAnswer relation
+
+        try{
+            $originalQuestion->setSelectedAnswer(null);
+            $entityManager->persist($originalQuestion);
+            $entityManager->flush();
+        }catch(Exception $e){
+            $status = $e->getMessage();
+            return new JsonResponse(array('status' => $status));
+        }
+
+
+        // Deleting AnswerScores
+        foreach ($answers as &$answer) {
+            $answerScores = $repository->findBy(
+                ['answer' => $answer]
+            );
+
+            try{
+                foreach($answerScores as &$answerScore){
+                    $entityManager->remove($answerScore);
+                    $entityManager->flush();
+                }
+            }catch(Exception $e){
+                $status = $e->getMessage();
+                return new JsonResponse(array('status' => $status));
+            }
+        }
+
+        // Deleting answers
+        foreach ($answers as &$answer) {
+            try{
+                $entityManager->remove($answer);
+                $entityManager->flush();
+            }catch(Exception $e){
+                $status = $e->getMessage();
+                return new JsonResponse(array('status' => $status));
+            }
+        }
+
+        // Deleting questionScores
+        foreach ($questionScores as &$questionScore) {
+            try{
+                $entityManager->remove($questionScore);
+                $entityManager->flush();
+            }catch(Exception $e){
+                $status = $e->getMessage();
+                return new JsonResponse(array('status' => $status));
+            }
+        }
+
+        // Deleting question
+        try{
+            $entityManager->remove($originalQuestion);
+            $entityManager->flush();
+
+            $status = "Se ha eliminado la pregunta";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+        return new JsonResponse(array('status' => $status));
 
     }
 

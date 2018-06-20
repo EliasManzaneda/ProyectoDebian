@@ -15,8 +15,26 @@
             <div class="col-md-1 order-md-1"></div>
             <div class="col-sm-10 order-md-2 col-md-10 ">
 
+                {% if questions|length <= 0 %}
+                <div class="article-container my-1 ">
+                    <div class="avatarpregunta myquestionsdata ">
+                        <div class="row">
+                            <div class="col-12 myquestionsnoquestions">
+                                <p>No has realizado ninguna pregunta todavia.</p>
+                                <p>Puedes formular una pregunta desde <a class="" href="{{ path("new_question") }}">aquí.</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                {% else %}
+
                             {% for question in questions %}
-                                <a  class="articlequestion" href="{{ path("article_show", { questionid: question.id}) }}">
+                                <div  class="articlequestion">
 
 
                                     {% if question.resolved == true  %}
@@ -25,13 +43,11 @@
                                         <div class="article-container my-1 ">
                                             {% endif %}
 
-                                            <!--
-                                <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
-                                -->
                                             <div class="avatarpregunta myquestionsdata ">
 
 
                                                 <div class="row">
+                                                    <a  class="linktoquestion" href="{{ path("article_show", { questionid: question.id}) }}">
                                                     <div class="col-2">
                                                         <img class="article-img d-none d-xl-inline-block " src="{{ asset('build/images/UserDefaultAvatar.png') }}">
                                                     </div>
@@ -50,35 +66,41 @@
                                                                 <span class="questionTag">{{ tag.name }}</span>
                                                             {% endfor %}
                                                     </span>
+                                                    </a>
 
-
-                                                    </div>
+                                                </div>
 
                                                     <div class="myquestionsstatus col-2">
+                                                        <a  class="linktoquestion" href="{{ path("article_show", { questionid: question.id}) }}">
                                                         {% if question.resolved == true  %}
                                                             <p><b>Resuelta</b></p>
                                                         {% else %}
                                                             <p><b>Sin resolver</b></p>
                                                         {% endif %}
+                                                        </a>
                                                     </div>
 
-                                                    <div class="myquestionsstatus col-2">
+
+                                               <div class="myquestionsstatus col-2">
                                                         <button class="btn btn-lg btn-primary custombutton buttonmyquestions" >Editar</button>
 
-                                                        <button class="btn btn-lg btn-primary custombutton buttonmyquestions" >Eliminar</button>
+                                                        <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-question-delete-{{ question.id }}="{{ (path('question_delete', { questionid: question.id})) }}" onclick="deleteQuestion({{ question.id  }})">Eliminar</button>
                                                     </div>
-                                                </div>
 
+
+
+                                                </div>
+                                        </div>
 
 
                                             </div>
 
 
                                         </div>
-                                </a>
+                                </div>
                             {% endfor %}
 
-
+                    {% endif %}
 
             </div>
             <!--
@@ -90,4 +112,60 @@
 
         </div>
     </div>
+
+
+    <script>
+
+        function deleteQuestion(questionid){
+            var atributeOfElement = '[data-question-delete-' + questionid + ']';
+            console.log("atributeOfElement: " + atributeOfElement);
+            // data-question-score-decrease-
+            // var questionScoreDecrease = document.querySelector(atributeOfElement);
+            var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-question-delete-" + questionid;
+            var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: questionPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "questionid": questionid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log(data.status);
+                        //window.alert(json.status);
+                        location.reload();
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                return false;
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+    </script>
+
 {% endblock %}

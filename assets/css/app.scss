@@ -32,6 +32,28 @@ h1, h2, h3, h4, h5{
 
 html {height:100%}
 
+a{
+  color: $bg_navbar-color-day !important;
+}
+
+a:visited{
+  color: $bg_navbar-color-day !important;
+}
+
+.navbarlinks a{
+  color: $font-color-inverse-day !important;
+}
+.navbarlinks a:visited{
+  color: $font-color-inverse-day !important;
+}
+.navbarlinks .navbaroptions a{
+  color: $bg_navbar-color-day !important;
+}
+.navbarlinks .navbaroptions a:visited{
+  color: $bg_navbar-color-day !important;
+}
+
+
 .customcontainer h1, .customcontainer h2, .customcontainer h3, .customcontainer h4, .customcontainer h5{
   color: $font-color-day !important;
 }
@@ -626,4 +648,14 @@ html {height:100%}
 .buttonmyquestions{
   padding: 5px;
   margin: 5px;
+}
+
+.myquestionsnoquestions p{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.linktoquestion{
+  display: inline;
 }
