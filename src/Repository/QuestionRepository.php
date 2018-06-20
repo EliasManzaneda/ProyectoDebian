@@ -30,6 +30,20 @@ class QuestionRepository extends ServiceEntityRepository
         return $qb->execute();
     }
 
+    public function findForResolved(){
+        $resolved = true;
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.user', 'u')
+            ->andWhere('q.resolved = :resolved')
+            ->addOrderBy('q.creationDate', 'DESC')
+            ->addOrderBy('q.title', 'ASC')
+            ->addOrderBy('u.username', 'ASC')
+            ->setParameter('resolved', $resolved)
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
     /**
      * @param $searchtext
      * @return mixed

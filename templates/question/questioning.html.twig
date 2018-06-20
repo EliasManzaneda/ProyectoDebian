@@ -28,16 +28,49 @@
                                     </div>
                                 </div>
                                 <br>
+                                <!-- Question tags -->
                                 {% for tag in question.tags %}
                                     <span class="questionTag">{{ tag.name }}</span>
                                 {% endfor %}
+
+
+
                             </div>
                         </div>
                     </div>
+
+
+                        {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')  and question.user == app.user and question.resolved == false %}
+                    <div class="row">
+                        <div class="col-2 ">
+                        </div>
+                        <div class="col-8 scorecontainer">
+                            <div>
+
+                                <hr>
+                                <p>Para cerrar la pregunta sin seleccionar una de las respuestas existentes, utilza la siguiente opcion.</p>
+                                <button class="btn btn-lg btn-primary custombutton" data-question-end-{{ question.id }}="{{ (path('question_end', { questionid: question.id})) }}" onclick="endQuestion({{ question.id  }})" >Marcar como finalizada</button>
+                            </div>
+                        </div>
+                    </div>
+                        {% endif %}
+
                     <!-- question user info-->
                     <div class="row">
-                        <div class="col-2">
-                            <button class="btn questioningAnswerText buttonScore" >&#9650;</button><p class="scoreText">{{ question.points }}</p><button  class="btn buttonScore lowerbuttonscore" >&#9660;</button>
+                        <div class="col-2 scorecontainer">
+                            {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')  and question.user != app.user%}
+                            <button class="btn questioningAnswerText buttonScore" data-question-score-increase-{{ question.id }}="{{ (path('question_score_increase', { questionid: question.id})) }}" onclick="increaseQuestionScore({{ question.id  }})" >&#9650;</button>
+                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                <button class="btn questioningAnswerText buttonScoreGray">&#9650;</button>
+                            {% endif %}
+
+                            <p class="scoreText" id="mainquestionscore">{{ question.points }}</p>
+
+                            {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')  and question.user != app.user%}
+                            <button  class="btn buttonScore lowerbuttonscore" data-question-score-decrease-{{ question.id }}="{{ (path('question_score_decrease', { questionid: question.id})) }}" onclick="decreaseQuestionScore({{ question.id  }})">&#9660;</button>
+                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                <button class="btn buttonScore lowerbuttonscoreGray">&#9660;</button>
+                            {% endif %}
                         </div>
                         <div class="col-8">
                             <hr>
@@ -48,16 +81,82 @@
                 </div>
 
                 <!-- answer form -->
-                <div  class="articlequestion articlefull">
+                {% if question.resolved == true  %}
+                <div  class="articlequestion articlefull questionresolved">
+                {% else %}
+                    <div  class="articlequestion articlefull">
+                {% endif %}
+
                     <div class="article-container my-1 articlefullcontainer">
                         <div class="avatarpregunta">
                             <div class="article-title d-inline-block pl-3 align-middle questiondiv questiondivAnswering">
+                                {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER') and question.resolved == false %}
                                 <form  class="form-signin answeringform" action="{{ path('article_show', { questionid: question.id}) }}" method="post">
                                     {{ form_row(form._token) }}
                                     {{ form_errors(form._text) }}
                                     {{ form_widget(form._text, { 'attr': {'class': 'form-control, askquestion', 'placeholder':'Escribe aquí tu respuesta.'} }) }}
                                     <button class="btn btn-lg btn-primary btn-block custombutton" type="submit">Responder</button>
                                 </form>
+
+                                {% elseif question.resolved == true  and question.selectedAnswer != null%}
+                                    <p class="resolvedMessage">Esta respuesta resolvió los problemas de <b>{{ question.user.username }}</b> </p>
+
+
+                                    <div  class="articlequestion articlefull">
+                                        <div class="article-container my-1 articlefullcontainer">
+                                            <div class="row">
+                                                <div class="col-2 leftanswerplace">
+                                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                                </div>
+                                                <div class="avatarpregunta col-8">
+                                                    <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                                        <br>
+                                                        <div class="align-left scoringanswer">
+                                                            <div class="">
+                                                                <span>{{ question.selectedAnswer.text }}</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Answer Author info-->
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER') and question.selectedAnswer.user != app.user %}
+                                                        <button class="btn questioningAnswerText buttonScore"   data-answer-score-increase-{{ question.selectedAnswer.id }}="{{ (path('answer_score_increase', { answerid: question.selectedAnswer.id })) }}" onclick="increaseAnswerScore({{ question.selectedAnswer.id }}, 'answer{{ question.selectedAnswer.id }}' )" >&#9650;</button>
+                                                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                                        <button class="btn questioningAnswerText buttonScoreGray">&#9650;</button>
+                                                    {% endif %}
+
+                                                    <p class="scoreText" id="answer{{ question.selectedAnswer.id }}">{{ question.selectedAnswer.points }}</p>
+
+                                                    {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER') and question.selectedAnswer.user != app.user %}
+                                                        <button  class="btn buttonScore lowerbuttonscore" data-answer-score-decrease-{{ question.selectedAnswer.id }}="{{ (path('answer_score_decrease', { answerid: question.selectedAnswer.id })) }}" onclick="decreaseAnswerScore({{ question.selectedAnswer.id }}, 'answer{{ question.selectedAnswer.id }}' )" >&#9660;</button>
+                                                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                                        <button class="btn buttonScore lowerbuttonscoreGray">&#9660;</button>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-8">
+                                                    <hr>
+                                                    <p class="answerauthor">{{ question.selectedAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.selectedAnswer.user.username }} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                {% elseif question.resolved == true  %}
+                                    <div>
+                                        <p><b>{{ question.user.username }}</b> marcó esta pregunta como respondida.</p>
+                                    </div>
+
+
+                                {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                    <p>¿Puedes ayudar a {{ question.user.username }}? <a class="registrationlink" href="{{ path("user_registration") }}">Registrate</a> para responder a su pregunta.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -73,7 +172,7 @@
                         <div class="article-container my-1 articlefullcontainer">
                             <div class="avatarpregunta">
                                 <div class="article-title d-inline-block pl-3 align-middle questiondiv">
-                                    <p>Esta pregunta no tiene respuestas todavia.</p>
+                                    <p class="noanswersyet">Esta pregunta no tiene respuestas todavia.</p>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +182,12 @@
                 {% else %}
                 {% for otherAnswer in otherAnswers %}
                     <!-- Answer start info-->
+                    {% if question.resolved == true and question.selectedAnswer.id == otherAnswer.id  %}
+                    <div  class="articlequestion articlefull questionresolved">
+                    {% else %}
                     <div  class="articlequestion articlefull">
+                        {% endif %}
+
                         <div class="article-container my-1 articlefullcontainer">
                             <div class="row">
                                 <div class="col-2 leftanswerplace">
@@ -95,15 +199,42 @@
                                         <div class="align-left scoringanswer">
                                             <div class="">
                                                 <span>{{ otherAnswer.text }}</span>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')  and question.user == app.user and question.resolved == false %}
+                                <div class="row">
+                                    <div class="col-2 ">
+                                    </div>
+                                    <div class="col-8 scorecontainer">
+                                        <div>
+
+                                            <hr>
+                                            <p>Si esta pregunta ha resuelto tus problemas, puedes cerrar la pregunta con la sigueinte opción.</p>
+                                            <button class="btn btn-lg btn-primary custombutton" data-question-{{ question.id }}-resolve-{{ otherAnswer.id }}="{{ (path('question_resolve', { questionid: question.id, answerid: otherAnswer.id })) }}" onclick="resolveQuestion({{ question.id  }}, {{ otherAnswer.id }})" >Marcar respuesta</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <!-- Answer Author info-->
                             <div class="row">
                                 <div class="col-2">
-                                    <button class="btn questioningAnswerText buttonScore" >&#9650;</button><p class="scoreText">{{ question.points }}</p><button  class="btn buttonScore lowerbuttonscore" >&#9660;</button>
+                                    {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER') and otherAnswer.user != app.user %}
+                                    <button class="btn questioningAnswerText buttonScore"   data-answer-score-increase-{{ otherAnswer.id }}="{{ (path('answer_score_increase', { answerid: otherAnswer.id })) }}" onclick="increaseAnswerScore({{ otherAnswer.id }}, 'answer{{ otherAnswer.id }}' )" >&#9650;</button>
+                                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                        <button class="btn questioningAnswerText buttonScoreGray">&#9650;</button>
+                                    {% endif %}
+
+                                    <p class="scoreText" id="answer{{ otherAnswer.id }}">{{ otherAnswer.points }}</p>
+
+                                    {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER') and otherAnswer.user != app.user %}
+                                    <button  class="btn buttonScore lowerbuttonscore" data-answer-score-decrease-{{ otherAnswer.id }}="{{ (path('answer_score_decrease', { answerid: otherAnswer.id })) }}" onclick="decreaseAnswerScore({{ otherAnswer.id }}, 'answer{{ otherAnswer.id }}' )" >&#9660;</button>
+                                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                        <button class="btn buttonScore lowerbuttonscoreGray">&#9660;</button>
+                                    {% endif %}
                                 </div>
                                 <div class="col-8">
                                     <hr>
@@ -134,7 +265,348 @@
     </div>
 </div>
 
+</div>
+    <script>
 
+        /*
+        var questionScoreIncrease = document.querySelector('[data-question-score-incrase]');
+
+        var questionId = questionScoreIncrease.getAttribute("data-question-score-incrase");
+
+        console.log("questionid = "+questionId);
+        window.alert("questionid = "+questionId);
+        */
+
+        var mainquestionscore = document.getElementById("mainquestionscore");
+
+
+
+        function endQuestion(questionid){
+            var atributeOfElement = '[data-question-end-' + questionid + ']';
+            // var questionScoreDecrease = document.querySelector(atributeOfElement);
+            var questionToEnd= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-question-end-" + questionid;
+            var questionPath = questionToEnd.getAttribute(atributeToGet);
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: questionPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "questionid": questionid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log(data.status);
+
+                        location.reload();
+                        //window.alert(json.status);
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                return false;
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+
+        function resolveQuestion(questionid, answerid){
+
+
+            console.log("questionid = " + questionid);
+            console.log("answerid = " + answerid);
+
+            var atributeOfElement = '[data-question-'+questionid +'-resolve-' + answerid + ']';
+            console.log("atributeOfElement = " + atributeOfElement);
+            // var questionScoreDecrease = document.querySelector(atributeOfElement);
+            var questionToEnd= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-question-"+questionid+"-resolve-" + answerid;
+            console.log("atributeToGet = " + atributeToGet);
+            var questionPath = questionToEnd.getAttribute(atributeToGet);
+            console.log("questionPath = " + questionPath);
+
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: questionPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "questionid": questionid,
+                        "answerid": answerid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log(data.status);
+
+                        location.reload();
+                        //window.alert(json.status);
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                return false;
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+
+        }
+
+
+        function increaseQuestionScore(questionid){
+            var atributeOfElement = '[data-question-score-increase-' + questionid + ']';
+            // var questionScoreDecrease = document.querySelector(atributeOfElement);
+            var questionScoreIncrease= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-question-score-increase-" + questionid;
+            var questionPath = questionScoreIncrease.getAttribute(atributeToGet);
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: questionPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "questionid": questionid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log(data.status);
+                        console.log(data.newScore);
+                        mainquestionscore.innerHTML = data.newScore;
+                        //window.alert(json.status);
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                return false;
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+
+
+        function decreaseQuestionScore(questionid){
+            var atributeOfElement = '[data-question-score-decrease-' + questionid + ']';
+            console.log("atributeOfElement: " + atributeOfElement);
+            // data-question-score-decrease-
+            // var questionScoreDecrease = document.querySelector(atributeOfElement);
+            var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-question-score-decrease-" + questionid;
+            var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: questionPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "questionid": questionid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log(data.status);
+                        //window.alert(json.status);
+                        mainquestionscore.innerHTML = data.newScore;
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                return false;
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+
+
+
+        function increaseAnswerScore(answerid, answerscore){
+
+            // var atributeOfElement = '[data-answer-score-increase-' + answerid + ']';
+            var atributeOfElement = '[data-answer-score-increase-' + answerid + ']';
+            console.log(atributeOfElement);
+            // var answerScoreIncrease = document.querySelector(atributeOfElement);
+
+            // $("ul").find("[data-slide='" + current + "']")
+            var answerScoreIncrease = document.querySelectorAll(atributeOfElement)[0];
+            // var answerScoreIncrease = document.querySelector('[data-answer-score-increase-' + answerid + ']');
+
+            var atributeToGet = "data-answer-score-increase-" + answerid;
+            console.log(atributeToGet);
+
+            var answerPath = answerScoreIncrease.getAttribute(atributeToGet);
+
+            var mainanswerscore = document.getElementById(answerscore);
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: answerPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "answerid": answerid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log("AJAX-SUCCESS");
+                        console.log(data.status);
+                        console.log(data.newScore);
+                        mainanswerscore.innerHTML = data.newScore;
+                        //window.alert(json.status);
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("AJAX-ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                console.log("AJAX-END");
+                return false;
+
+            }catch (err) {
+                console.log("Error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+
+
+
+        function decreaseAnswerScore(answerid, answerscore){
+            var atributeOfElement = '[data-answer-score-decrease-' + answerid + ']';
+            // var answerScoreDecrease = document.querySelector(atributeOfElement);
+            var answerScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+            var atributeToGet = "data-answer-score-decrease-" + answerid;
+            var answerPath = answerScoreDecrease.getAttribute(atributeToGet);
+
+            var mainanswerscore = document.getElementById(answerscore);
+
+            try{
+
+
+                that = $(this);
+                $.ajax({
+                    url: answerPath,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "answerid": answerid
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        //var json = JSON.parse(data);
+
+
+                        // console.log(myObj[0]["result_code"]);
+
+                        // $('div#ajax-results').html(data.output);
+                        console.log("AJAX-SUCCESS");
+                        console.log(data.status);
+                        console.log(data.newScore);
+                        mainanswerscore.innerHTML = data.newScore;
+                        //window.alert(json.status);
+
+                    },
+                    error: function (request, status, error) {
+                        console.log("AJAX-ERROR: " + request.responseText);
+                        // window.alert("ERROR: " + request.responseText);
+                        // alert(request.responseText);
+                    }
+                });
+                console.log("AJAX-END");
+                return false;
+
+
+            }catch (err) {
+                console.log("error = "+err.message);
+                // window.alert("error = "+err.message);
+            }
+        }
+
+    </script>
 
 {% endblock %}
 

@@ -101,9 +101,15 @@
 
                 {% else %}
                     {% for question in questions %}
-                        <a  class="articlequestion" href="{{ path("article_show", { questionid: question.id}) }}">
-                            <div class="article-container my-1">
 
+                            <a  class="articlequestion" href="{{ path("article_show", { questionid: question.id}) }}">
+
+
+                                {% if question.resolved == true  %}
+                                <div class="article-container my-1 resolved">
+                                    {% else %}
+                                    <div class="article-container my-1 ">
+                                        {% endif %}
 
                                 <!--
                                 <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
@@ -148,7 +154,7 @@
 
                 <div class="col-sm-12 col-md-4 text-center">
                     <div class="ad-space mx-auto mt-1 pb-2 pt-2">
-                        <p><span class="advertisement-text">Preguntas populares</span> </p>
+                        <p><span class="advertisement-text">Preguntas resueltas recientemente</span> </p>
 
 
                         {% for newQuestion in newQuestions %}

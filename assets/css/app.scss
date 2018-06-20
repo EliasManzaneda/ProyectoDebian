@@ -520,11 +520,25 @@ html {height:100%}
 }
 .scoreText{
   display: inline !important;
-  color: $bg_navbar-color-day;
+
   margin-left: 52px;
   margin-bottom: -2px;
 
+  text-align: center;
+
+  color: $bg_navbar-color-day;
+
+
 }
+
+.scorecontainer{
+ // background-color: $bg_navbar-color-day !important;
+}
+
+.registrationlink{
+  color: $bg_navbar-color-day !important;
+}
+
 .buttonScore{
   background-color: $bg_navbar-color-day;
   margin-left: 40px;
@@ -533,6 +547,33 @@ html {height:100%}
 }
 .lowerbuttonscore{
   margin-bottom: 10px;
+}
+.noanswersyet{
+  text-align: center !important;
+}
+.resolvedMessage{
+  text-decoration: underline;
+}
+.buttonScoreGray{
+  background-color: #EFF0F1 !important;
+  margin-left: 40px;
+  display: inline !important;
+  color: $font-color-inverse-day !important;
+}
+
+.resolved{
+  background-color: #f9de86 !important;
+}
+
+.lowerbuttonscoreGray{
+  background-color: #EFF0F1 !important;
+  color: $font-color-inverse-day !important;
+  margin-bottom: 10px;
+}
+
+.questionresolved .articlefullcontainer{
+  text-align: center;
+  background-color: #f9de86 !important;
 }
 
 .answeravathar{

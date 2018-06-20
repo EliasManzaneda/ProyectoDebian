@@ -9,12 +9,15 @@
 namespace App\Controller;
 
 
+use App\Entity\QuestionScore;
 use App\Entity\User;
 use App\Entity\Question;
 use App\Entity\Answer;
+use Exception;
 use Psr\Log\LoggerInterface;
 use function Sodium\add;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +36,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class QuestionController extends AbstractController
 {
+
+
+
     /**
      * @Route("/question/{questionid}", name="article_show")
      */
@@ -65,20 +71,29 @@ class QuestionController extends AbstractController
         ]);
         */
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('app_homepage');
+            // return $this->redirectToRoute('app_homepage');
         }
 
 
 
         $repository = $this->getDoctrine()->getRepository(Question::class);
         $questions = $repository->findForHomepage();
-        $newQuestions = array_slice($questions, -3);
+
+        $questionsResolved = $repository->findForResolved();
+        $newQuestions = array_slice($questionsResolved, -5);
 
         $originalQuestion = $repository->findOneBy(array('id' => $questionid));
 
 
         $repository = $this->getDoctrine()->getRepository(Answer::class);
         $otherAnswers = $repository->findBy(array('question' => $questionid));
+
+
+        if($originalQuestion->getResolved() == true){
+
+
+
+        }
 
 
         $answer = new Answer();
@@ -162,7 +177,9 @@ class QuestionController extends AbstractController
         $questions = $repository->findForHomepage();
 
         // $newQuestions = $questions;
-        $newQuestions = array_slice($questions, -3);
+        // $newQuestions = array_slice($questions, -3);
+        $questionsResolved = $repository->findForResolved();
+        $newQuestions = array_slice($questionsResolved, -5);
 
         // SEARCHBAR
         $data = [
@@ -413,6 +430,7 @@ class QuestionController extends AbstractController
 
             $user = $this->getUser();
 
+
             $question->setUser($user);
             $question->setResolved(false);
             $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
@@ -486,4 +504,239 @@ class QuestionController extends AbstractController
         $logger->info('Article is being hearted!');
         return new JsonResponse(['hearts' => rand(5, 100)]);
     }
+
+    /**
+     * Increases a question score
+     *
+     * @Route("/question/{questionid}/score/increase", name="question_score_increase", methods={"POST"})
+     */
+    public function increaseQuestionScore($questionid)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+        $repository = $this->getDoctrine()->getRepository(QuestionScore::class);
+        $alreadyScored = null;
+        try{
+            $alreadyScored =  $repository->findOneBy([
+                'question' => $originalQuestion,
+                'scoredBy' => $user,
+            ]);
+
+        }catch (\Exception $e){
+
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if($alreadyScored == null){
+            // Answer was not yet scored by this user
+            $questionScoring = new QuestionScore();
+            $questionScoring->setQuestion($originalQuestion);
+            $questionScoring->setScoredBy($user);
+            $questionScoring->setScore(1);
+
+            $originalQuestion->setPoints(($originalQuestion->getPoints() + 1));
+
+
+
+
+            try{
+                $entityManager->persist($questionScoring);
+                $entityManager->persist($originalQuestion);
+
+                $entityManager->flush();
+
+                $status = "Se ha puntuado la pregunta.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalQuestion->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+
+
+        }else{
+            // Answer was already scored by this user
+            if($alreadyScored->getScore() != 1){
+                $alreadyScored->setScore(1);
+                $originalQuestion->setPoints(($originalQuestion->getPoints() + 2));
+            }
+            try{
+                $entityManager->persist($alreadyScored);
+                $entityManager->persist($originalQuestion);
+
+                $entityManager->flush();
+
+                $status = "Puntuación actualizada.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalQuestion->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+        }
+
+    }
+
+    /**
+     * Decreases a question score
+     *
+     * @Route("/question/{questionid}/score/decrease", name="question_score_decrease", methods={"POST"})
+     */
+    public function decreaseQuestionScore($questionid)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+        $repository = $this->getDoctrine()->getRepository(QuestionScore::class);
+        $alreadyScored = null;
+        try{
+            $alreadyScored =  $repository->findOneBy([
+                'question' => $originalQuestion,
+                'scoredBy' => $user,
+            ]);
+
+        }catch (\Exception $e){
+
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if($alreadyScored == null){
+            // Answer was not yet scored by this user
+            $questionScoring = new QuestionScore();
+            $questionScoring->setQuestion($originalQuestion);
+            $questionScoring->setScoredBy($user);
+            $questionScoring->setScore(-1);
+
+            $originalQuestion->setPoints(($originalQuestion->getPoints() - 1));
+
+
+
+
+            try{
+                $entityManager->persist($questionScoring);
+                $entityManager->persist($originalQuestion);
+
+                $entityManager->flush();
+
+                $status = "Se ha puntuado la pregunta.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalQuestion->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+
+
+        }else{
+            // Answer was already scored by this user
+            if($alreadyScored->getScore() != -1){
+                $alreadyScored->setScore(-1);
+                $originalQuestion->setPoints(($originalQuestion->getPoints() - 2));
+            }
+            try{
+                $entityManager->persist($alreadyScored);
+                $entityManager->persist($originalQuestion);
+
+                $entityManager->flush();
+
+                $status = "Puntuación actualizada.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalQuestion->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+        }
+
+    }
+
+    /**
+     * Ends a question
+     *
+     * @Route("/question/{questionid}/end", name="question_end", methods={"POST"})
+     */
+    public function endQuestion($questionid)
+    {
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        try{
+            $originalQuestion->setResolved(true);
+            $entityManager->persist($originalQuestion);
+
+            $entityManager->flush();
+
+            $status = "Pregunta finalizada.";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+        $newScore = $originalQuestion->getPoints();
+        return new JsonResponse(array('status' => $status));
+    }
+
+    /**
+     * Resolves a question
+     *
+     * @Route("/question/{questionid}/resolve/{answerid}", name="question_resolve", methods={"POST"})
+     */
+    public function resolveQuestion($questionid, $answerid)
+    {
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+        $repository = $this->getDoctrine()->getRepository(Answer::class);
+        $originalAnswer = $repository->findOneBy(array('id' => $answerid));
+
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        try{
+            $originalQuestion->setResolved(true);
+            $originalQuestion->setSelectedAnswer($originalAnswer);
+            $entityManager->persist($originalQuestion);
+
+            $entityManager->flush();
+
+            $status = "Pregunta finalizada con respuesta.";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+        $newScore = $originalQuestion->getPoints();
+        return new JsonResponse(array('status' => $status));
+    }
+
+
 }

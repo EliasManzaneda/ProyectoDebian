@@ -8,11 +8,14 @@
 
 namespace App\Controller;
 
+use App\Entity\AnswerScore;
 use App\Entity\User;
 use App\Entity\Answer;
 use App\Entity\Question;
+use Exception;
 use function Sodium\add;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,4 +103,183 @@ class AnswerController extends AbstractController
         */
 
     }
+
+
+
+    /**
+     * Increases a answer score
+     *
+     * @Route("/answer/{answerid}/score/increase", name="answer_score_increase", methods={"POST"})
+     */
+    public function increaseAnswerScore($answerid)
+    {
+
+
+
+
+        $repository = $this->getDoctrine()->getRepository(Answer::class);
+
+
+        $originalAnswer = null;
+        $originalAnswer = $repository->findOneBy(array('id' => $answerid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+        $repository = $this->getDoctrine()->getRepository(AnswerScore::class);
+        $alreadyScored = null;
+        try{
+            $alreadyScored =  $repository->findOneBy([
+                'answer' => $originalAnswer,
+                'scoredBy' => $user,
+            ]);
+
+            /*
+            if($alreadyScored != $originalAnswer){
+                $alreadyScored = null;
+            }
+            */
+
+        }catch (\Exception $e){
+            $status = $e->getMessage();
+            return new JsonResponse(array('status' => $status, 'newScore' => "fail"));
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if($alreadyScored == null){
+            // Answer was not yet scored by this user
+            $questionScoring = new AnswerScore();
+            $questionScoring->setAnswer($originalAnswer);
+            $questionScoring->setScoredBy($user);
+            $questionScoring->setScore(1);
+
+            $originalAnswer->setPoints(($originalAnswer->getPoints() + 1));
+
+
+
+
+            try{
+                $entityManager->persist($questionScoring);
+                $entityManager->persist($originalAnswer);
+
+                $entityManager->flush();
+
+                $status = "Respuesta: Puntuación creada";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalAnswer->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+
+
+        }else{
+            // Answer was already scored by this user
+            if($alreadyScored->getScore() != 1){
+                $alreadyScored->setScore(1);
+                $originalAnswer->setPoints(($originalAnswer->getPoints() + 2));
+            }
+            try{
+                $entityManager->persist($alreadyScored);
+                $entityManager->persist($originalAnswer);
+
+                $entityManager->flush();
+
+                $status = "Respuesta: Puntuación actualizada.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+
+            }
+            $newScore = $originalAnswer->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+        }
+
+    }
+
+    /**
+     * Decreases a answer score
+     *
+     * @Route("/answer/{answerid}/score/decrease", name="answer_score_decrease", methods={"POST"})
+     */
+    public function decreaseAnswerScore($answerid)
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Answer::class);
+
+
+        $originalAnswer = null;
+        $originalAnswer = $repository->findOneBy(array('id' => $answerid));
+
+        $status = "";
+
+        $user = $this->getUser();
+
+        $repository = $this->getDoctrine()->getRepository(AnswerScore::class);
+        $alreadyScored = null;
+        try{
+            $alreadyScored =  $repository->findOneBy([
+                'answer' => $originalAnswer,
+                'scoredBy' => $user,
+            ]);
+
+        }catch (\Exception $e){
+
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if($alreadyScored == null){
+            // Answer was not yet scored by this user
+            $questionScoring = new AnswerScore();
+            $questionScoring->setAnswer($originalAnswer);
+            $questionScoring->setScoredBy($user);
+            $questionScoring->setScore(-1);
+
+            $originalAnswer->setPoints(($originalAnswer->getPoints() - 1));
+
+
+
+
+            try{
+                $entityManager->persist($questionScoring);
+                $entityManager->persist($originalAnswer);
+
+                $entityManager->flush();
+
+                $status = "Se ha puntuado la respuesta.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalAnswer->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+
+
+        }else{
+            // Answer was already scored by this user
+            if($alreadyScored->getScore() != -1){
+                $alreadyScored->setScore(-1);
+                $originalAnswer->setPoints(($originalAnswer->getPoints() - 2));
+            }
+            try{
+                $entityManager->persist($alreadyScored);
+                $entityManager->persist($originalAnswer);
+
+                $entityManager->flush();
+
+                $status = "Puntuación actualizada.";
+            }catch(Exception $e){
+                $status = $e->getMessage();
+            }
+            $newScore = $originalAnswer->getPoints();
+            return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
+
+        }
+
+    }
+
 }
