@@ -598,3 +598,32 @@ html {height:100%}
 .leftanswerplace{
   // border: 1px solid red;
 }
+
+.mispreguntastitulo{
+  text-align: center;
+  // color: $bg_navbar-color-day;
+}
+
+
+.myquestionsdata{
+  display: block !important;
+
+}
+
+.myquestionsstatus{
+  display: block !important;
+  // border: 1px solid red;
+
+  text-align: center;
+
+
+}
+
+.myquestionsstatus p {
+  margin-top: 35px;
+}
+
+.buttonmyquestions{
+  padding: 5px;
+  margin: 5px;
+}

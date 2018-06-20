@@ -182,7 +182,7 @@
                 {% else %}
                 {% for otherAnswer in otherAnswers %}
                     <!-- Answer start info-->
-                    {% if question.resolved == true and question.selectedAnswer.id == otherAnswer.id  %}
+                    {% if question.resolved == true and question.selectedAnswer != null and question.selectedAnswer.id == otherAnswer.id  %}
                     <div  class="articlequestion articlefull questionresolved">
                     {% else %}
                     <div  class="articlequestion articlefull">
