@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a style="color: #fff;" class="nav-link" href="#{{ path("search_question") }}">Preguntas</a>
+
                             </li>
 
                         </ul>
@@ -68,6 +68,9 @@
                                         <span class="navavatarusername">{{ app.user.username }} </span><img class="nav-profile-img navavatar" src="{{ asset(app.user.avatarPath) }}">
                                     </a>
                                     <div class="dropdown-menu navbaroptions" aria-labelledby="navbarDropdownMenuLink">
+                                        {% if  is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+                                            <a class="dropdown-item" href="{{ path("superzone_user",{ adminid: app.user.id}) }}">Usuarios</a>
+                                        {% endif %}
                                         <a class="dropdown-item" href="{{ path("user_profile",{ userid: app.user.id}) }}">Mi Perfil</a>
                                         <a class="dropdown-item" href="{{ path("list_questions") }}">Mis Preguntas</a>
                                         <a class="dropdown-item" href="{{ path("new_question") }}">Preguntar</a>

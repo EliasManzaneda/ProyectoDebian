@@ -45,6 +45,25 @@ class QuestionController extends AbstractController
      */
     public function show(Request $request, $questionid)
     {
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
         /*
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
@@ -173,6 +192,25 @@ class QuestionController extends AbstractController
      */
     public function homepage(Request $request)
     {
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+
         $repository = $this->getDoctrine()->getRepository(Question::class);
         $questions = $repository->findForHomepage();
 
@@ -232,11 +270,20 @@ class QuestionController extends AbstractController
 
 
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                /*
                 return $this->render('adminhomepage.html.twig', [
                     'questions' => $questions,
                     'newQuestions' => $newQuestions,
                     'form' => $form->createView(),
                     'searched' => $data['searchbar'],
+                    'searching' => false
+                ]);
+                */
+                return $this->render('homepage.html.twig', [
+                    'questions' => $questions,
+                    'newQuestions' => $newQuestions,
+                    'form' => $form->createView(),
+                    'searched' => $data['searchtext'],
                     'searching' => false
                 ]);
             }else{
@@ -257,7 +304,16 @@ class QuestionController extends AbstractController
 
 
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            /*
             return $this->render('adminhomepage.html.twig', [
+                'questions' => $questions,
+                'newQuestions' => $newQuestions,
+                'form' => $form->createView(),
+                'searched' => $data['searchbar'],
+                'searching' => false
+            ]);
+            */
+            return $this->render('homepage.html.twig', [
                 'questions' => $questions,
                 'newQuestions' => $newQuestions,
                 'form' => $form->createView(),
@@ -286,6 +342,25 @@ class QuestionController extends AbstractController
      */
     public function myQuestions()
     {
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_homepage');
         }
@@ -337,6 +412,24 @@ class QuestionController extends AbstractController
      * @Route("/searchquestion", name="search_question")
      */
     public function searchQuestion(Request $request){
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
         $data = [
             "searchbar" => "default"
@@ -410,6 +503,24 @@ class QuestionController extends AbstractController
      */
     public function newQuestion(Request $request){
 
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
 
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_homepage');
@@ -457,6 +568,24 @@ class QuestionController extends AbstractController
      */
     public function editQuestion(Request $request, $questionid){
 
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_homepage');
@@ -512,7 +641,23 @@ class QuestionController extends AbstractController
      */
     public function adminDeleteQuestion(Request $request){
 
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
 
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
 
         $question = new Question();
@@ -556,6 +701,24 @@ class QuestionController extends AbstractController
      */
     public function deleteQuestion(Request $request, $questionid){
 
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
         $repository = $this->getDoctrine()->getRepository(Question::class);
 
@@ -664,6 +827,24 @@ class QuestionController extends AbstractController
      */
     public function increaseQuestionScore($questionid)
     {
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
         $repository = $this->getDoctrine()->getRepository(Question::class);
 
@@ -826,6 +1007,25 @@ class QuestionController extends AbstractController
      */
     public function endQuestion($questionid)
     {
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
         $repository = $this->getDoctrine()->getRepository(Question::class);
 
 
@@ -860,6 +1060,26 @@ class QuestionController extends AbstractController
      */
     public function resolveQuestion($questionid, $answerid)
     {
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
         $repository = $this->getDoctrine()->getRepository(Question::class);
 
 

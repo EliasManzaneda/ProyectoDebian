@@ -2,56 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d1bca90-1213-4e0d-80a0-d1bf0526d432" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Form/AvatarType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ProfileType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/question/editQuestion.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/adminuserprofile.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/question/zonaadmin.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/suspendido.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/alien-profile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/asteroid.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/astronaut-profile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/lightspeed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/mercury.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/meteor-shower.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/space-ice.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/space-nav.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.08de5b8d.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.08f8cf62.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.17da9c58.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/app.17da9c58.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.1db9603d.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.3dc5fefe.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.45a081ac.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.52dd0e22.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.54c91d90.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.5831b3ca.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.ad5655c5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.b72aec96.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.d12b8e90.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/app.ded5c11b.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/alien-profile.da9d186f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/asteroid.46e3954c.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/astronaut-profile.4dd907a8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/lightspeed.5112b3f4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/mercury.ff435644.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/meteor-shower.5c77ab6d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/space-ice.4b537aba.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/images/space-nav.f9a47078.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/build/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/question/questioning.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/questioning.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/profile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/profile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/validators.en.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/validators.en.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/validators.es.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/validators.es.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -68,38 +30,21 @@
       <file leaf-file-name="QuestionController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/QuestionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="891">
-              <caret line="483" column="12" selection-start-line="483" selection-start-column="12" selection-end-line="483" selection-end-column="37" />
+            <state relative-caret-position="426">
+              <caret line="321" column="15" selection-start-line="321" selection-start-column="15" selection-end-line="321" selection-end-column="15" />
               <folding>
                 <element signature="e#124#151#0#PHP" expanded="true" />
+                <element signature="e#1177#4638#0#PHP" />
+                <element signature="e#8143#8820#0#PHP" />
+                <element signature="e#9503#11338#0#PHP" />
+                <element signature="e#11415#12525#0#PHP" />
+                <element signature="e#12614#14164#0#PHP" />
+                <element signature="e#14257#15172#0#PHP" />
+                <element signature="e#15267#18006#0#PHP" />
+                <element signature="e#18523#20792#0#PHP" />
+                <element signature="e#23367#24097#0#PHP" />
+                <element signature="e#24255#25231#0#PHP" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editQuestion.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/question/editQuestion.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QuestionType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Form/QuestionType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/user/profile.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -107,10 +52,62 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="86" column="15" selection-start-line="86" selection-start-column="15" selection-end-line="86" selection-end-column="15" />
+            <state relative-caret-position="319">
+              <caret line="338" selection-start-line="338" selection-end-line="338" />
               <folding>
-                <element signature="e#123#143#0#PHP" expanded="true" />
+                <element signature="e#123#147#0#PHP" expanded="true" />
+                <element signature="e#6230#6971#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminuserprofile.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/admin/adminuserprofile.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="96" column="214" selection-start-line="96" selection-start-column="214" selection-end-line="96" selection-end-column="214" />
+              <folding>
+                <element signature="e#4316#6088#0#HTML" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="suspendido.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/suspendido.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="94" column="86" selection-start-line="94" selection-start-column="86" selection-end-line="94" selection-end-column="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="319">
+              <caret line="677" column="19" selection-start-line="677" selection-start-column="19" selection-end-line="677" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="questioning.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/question/questioning.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="133" column="17" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="17" />
+              <folding>
+                <element signature="e#30#78#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,32 +116,8 @@
       <file leaf-file-name="security.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-120">
+            <state relative-caret-position="-180">
               <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-              <folding>
-                <element signature="e#30#78#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProfileType.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Form/ProfileType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="45" column="78" selection-start-line="45" selection-start-column="78" selection-end-line="45" selection-end-column="78" />
-              <folding>
-                <element signature="e#117#137#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -152,8 +125,8 @@
       <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="70" column="92" selection-start-line="70" selection-start-column="80" selection-end-line="70" selection-end-column="92" />
+            <state relative-caret-position="285">
+              <caret line="96" column="22" selection-start-line="30" selection-end-line="96" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -162,11 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>name</find>
-      <find>find</find>
-      <find>answer</find>
-      <find>navbarinputgroup</find>
-      <find>navbarsearch</find>
       <find>custombutton</find>
       <find>moz</find>
       <find>findoneby</find>
@@ -191,7 +159,12 @@
       <find>newava</find>
       <find>anony</find>
       <find>getpa</find>
+      <find>bans</find>
+      <find>excep</find>
       <find>avatar</find>
+      <find>me</find>
+      <find>date</find>
+      <find>adminhome</find>
     </findStrings>
     <replaceStrings>
       <replace>build/images</replace>
@@ -205,8 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/question/listSearchedQuestions.html.twig" />
-        <option value="$PROJECT_DIR$/templates/question/searchbar.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/SecurityController.php" />
         <option value="$PROJECT_DIR$/src/Controller/AdminController.php" />
         <option value="$PROJECT_DIR$/config/packages/security.yaml" />
@@ -237,10 +208,7 @@
         <option value="$PROJECT_DIR$/templates/security/login.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/AnswerController.php" />
         <option value="$PROJECT_DIR$/src/Repository/QuestionRepository.php" />
-        <option value="$PROJECT_DIR$/src/Controller/QuestionController.php" />
         <option value="$PROJECT_DIR$/templates/homepage.html.twig" />
-        <option value="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" />
-        <option value="$PROJECT_DIR$/templates/question/questioning.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/UserType.php" />
         <option value="$PROJECT_DIR$/translations/validators.en.yaml" />
         <option value="$PROJECT_DIR$/src/Services/FileUploader.php" />
@@ -249,13 +217,18 @@
         <option value="$PROJECT_DIR$/config/services.yaml" />
         <option value="$PROJECT_DIR$/src/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
-        <option value="$PROJECT_DIR$/assets/css/app.scss" />
         <option value="$PROJECT_DIR$/src/Form/AvatarType.php" />
-        <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/templates/question/editQuestion.html.twig" />
-        <option value="$PROJECT_DIR$/templates/user/profile.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/Form/ProfileType.php" />
+        <option value="$PROJECT_DIR$/templates/user/profile.html.twig" />
+        <option value="$PROJECT_DIR$/templates/question/listMyQuestions.html.twig" />
+        <option value="$PROJECT_DIR$/assets/css/app.scss" />
+        <option value="$PROJECT_DIR$/templates/suspendido.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/UserController.php" />
+        <option value="$PROJECT_DIR$/templates/admin/adminuserprofile.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/QuestionController.php" />
+        <option value="$PROJECT_DIR$/templates/base.html.twig" />
+        <option value="$PROJECT_DIR$/templates/question/questioning.html.twig" />
       </list>
     </option>
   </component>
@@ -384,6 +357,17 @@
             <path>
               <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
               <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
+              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
+              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -406,24 +390,6 @@
             <path>
               <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
               <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
-              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
-              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Repository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
-              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -431,12 +397,6 @@
               <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="question" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="desbordamiento-de-pila" type="b2602c69:ProjectViewProjectNode" />
-              <item name="desbordamiento-de-pila" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -509,12 +469,12 @@
       <workItem from="1529386391563" duration="16720000" />
       <workItem from="1529480445236" duration="22413000" />
       <workItem from="1529518978733" duration="7823000" />
-      <workItem from="1529558250600" duration="19312000" />
+      <workItem from="1529558250600" duration="24721000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197042000" />
+    <option name="totallyTimeSpent" value="202451000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="950" extended-state="6" />
@@ -548,27 +508,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Entity/Tag.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/fos_rest.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repository/RolRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Repository/AnswerRepository.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -713,13 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/question/questioning.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="193" column="125" selection-start-line="193" selection-start-column="125" selection-end-line="193" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/UserDefaultAvatar.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -764,24 +696,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="48" column="135" selection-start-line="48" selection-start-column="135" selection-end-line="48" selection-end-column="135" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/translations/validators.es.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="75" selection-start-line="3" selection-start-column="75" selection-end-line="3" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="588" column="55" selection-start-line="588" selection-start-column="55" selection-end-line="588" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -802,31 +720,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="70" column="92" selection-start-line="70" selection-start-column="80" selection-end-line="70" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/RegistrationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="45" column="72" lean-forward="true" selection-start-line="45" selection-start-column="72" selection-end-line="45" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/SecurityController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/profile.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -837,47 +734,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/QuestionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="483" column="12" selection-start-line="483" selection-start-column="12" selection-end-line="483" selection-end-column="37" />
-          <folding>
-            <element signature="e#124#151#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="e#30#78#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/question/editQuestion.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="86" column="15" selection-start-line="86" selection-start-column="15" selection-end-line="86" selection-end-column="15" />
-          <folding>
-            <element signature="e#123#143#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -888,6 +748,116 @@
           <folding>
             <element signature="e#117#137#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/profile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180">
+          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="133" column="17" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="17" />
+          <folding>
+            <element signature="e#30#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/question/listMyQuestions.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="116" selection-start-line="116" selection-end-line="165" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/question/zonaadmin.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/RegistrationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="677" column="19" selection-start-line="677" selection-start-column="19" selection-end-line="677" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/suspendido.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="94" column="86" selection-start-line="94" selection-start-column="86" selection-end-line="94" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="338" selection-start-line="338" selection-end-line="338" />
+          <folding>
+            <element signature="e#123#147#0#PHP" expanded="true" />
+            <element signature="e#6230#6971#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/adminuserprofile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="96" column="214" selection-start-line="96" selection-start-column="214" selection-end-line="96" selection-end-column="214" />
+          <folding>
+            <element signature="e#4316#6088#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/QuestionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="321" column="15" selection-start-line="321" selection-start-column="15" selection-end-line="321" selection-end-column="15" />
+          <folding>
+            <element signature="e#124#151#0#PHP" expanded="true" />
+            <element signature="e#1177#4638#0#PHP" />
+            <element signature="e#8143#8820#0#PHP" />
+            <element signature="e#9503#11338#0#PHP" />
+            <element signature="e#11415#12525#0#PHP" />
+            <element signature="e#12614#14164#0#PHP" />
+            <element signature="e#14257#15172#0#PHP" />
+            <element signature="e#15267#18006#0#PHP" />
+            <element signature="e#18523#20792#0#PHP" />
+            <element signature="e#23367#24097#0#PHP" />
+            <element signature="e#24255#25231#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="96" column="22" selection-start-line="30" selection-end-line="96" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/question/questioning.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

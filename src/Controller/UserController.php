@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\AvatarType;
@@ -15,6 +16,7 @@ use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +24,109 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
+use Exception;
 
 
 
 class UserController extends AbstractController
 {
+
+
+    /**
+     * @Route("/super/{userid}", name="superzone")
+     */
+    public function adminZone(Request $request, $userid)
+    {
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
+
+       // $repository = $this->getDoctrine()->getRepository(Question::class);
+        // $questions = $repository->findForHomepage();
+
+
+
+
+
+
+
+
+
+
+
+        $answer = new Answer();
+
+        $form = $this->createForm(AnswerType::class, $answer);
+    }
+
+    /**
+     * @Route("/super/{adminid}/users", name="superzone_user")
+     */
+    public function adminUserProfile(Request $request, $adminid)
+    {
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+           // return $this->redirectToRoute('app_homepage');
+        }
+        $me = $this->getUser();
+        $editedUsers = [];
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+
+        foreach ($users as &$user) {
+            if($user->getId() != $me->getId()){
+                array_push($editedUsers,$user);
+            }
+
+        }
+
+
+
+
+
+        return $this->render('admin/adminuserprofile.html.twig', array(
+            "users" => $editedUsers
+        ));
+    }
 
 
 
@@ -36,6 +136,24 @@ class UserController extends AbstractController
     public function profileAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, $userid, FileUploader $fileUploader)
     {
 
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
 
 
         $submitttedAndValid = 'maybe';
@@ -159,4 +277,118 @@ class UserController extends AbstractController
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+
+
+    /**
+     * @Route("/super/{userid}/banforever", name="superzona_user_ban_forever")
+     */
+    public function banForever(Request $request, $userid){
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userToBan = $repository->findOneBy(array('id' => $userid));
+
+
+        $status = "";
+
+
+        try{
+
+            $registerDate = new \DateTime('now + 200 years', (new \DateTimeZone('Europe/Madrid')));
+            $userToBan->setBanDate($registerDate);
+            $entityManager->persist($userToBan);
+
+
+            $entityManager->flush();
+
+            $status = "Usuario suspendido .";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+
+
+        return new JsonResponse(array('status' => $status));
+
+    }
+
+
+
+
+    /**
+     * @Route("/super/{userid}/bandays", name="superzona_user_ban_days")
+     */
+    public function banDays(Request $request, $userid){
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userToBan = $repository->findOneBy(array('id' => $userid));
+
+
+        $status = "";
+
+
+        try{
+
+            $registerDate = new \DateTime('now + 3 days', (new \DateTimeZone('Europe/Madrid')));
+            $userToBan->setBanDate($registerDate);
+            $entityManager->persist($userToBan);
+
+
+            $entityManager->flush();
+
+            $status = "Usuario suspendido .";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+
+
+        return new JsonResponse(array('status' => $status));
+
+    }
+
 }

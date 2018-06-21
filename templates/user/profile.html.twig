@@ -5,16 +5,19 @@
 
 <div class="container">
     <div class="row">
-        <p>error {{ error }}</p>
-        <br>
-        <p>submitttedAndValid {{ submitttedAndValid }}</p>
+
 
             <div class="col-md-1 order-md-1"></div>
             <div class="col-sm-12 order-md-2 col-md-10 ">
-                <h1 class="mispreguntastitulo">Mi Perfil</h1>
+
+
                 <div class="avatarpregunta myquestionsdata ">
                     <div class="row">
+
                         <div class="col-12 myquestionsnoquestions myprofilediv">
+                            <br>
+                            <h1 class="mispreguntastitulo">Mi Perfil</h1>
+                            <p>Puedes cambiar tu información de usuario desde aquí</p>
                             {{ form_start(form, { 'attr': {'class': 'form-signin', 'action': path('user_profile', { userid: userid}) } }) }}
 
                             {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder':'Usuario'} }) }}

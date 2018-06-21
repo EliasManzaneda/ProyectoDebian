@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+                {% if users|length > 0 %}
+                    <br>
+                    <h1 class="mispreguntastitulo">Usuarios</h1>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-10 order-md-2 col-md-10 ">
+
+                {% if users|length <= 0 %}
+                    <div class="article-container my-1 ">
+                        <div class="avatarpregunta myquestionsdata ">
+                            <div class="row">
+                                <div class="col-12 myquestionsnoquestions">
+                                    <br>
+                                    <h1 class="mispreguntastitulo">Usuarios</h1>
+                                    <p>No hay usuarios</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                {% else %}
+
+                    {% for user in users %}
+
+
+
+
+                    <div class="article-container my-1 ">
+
+
+
+                            <div class="avatarpregunta">
+                                <img class="article-img d-none d-xl-inline-block " src="{{ asset(user.avatarPath) }}">
+
+                                <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                    <span class="questiontitle">
+                                        <span>Username: {{ user.username }}</span>
+                                    </span>
+                                    <br>
+                                    <span class="questiontitle">
+                                        <span>Ban Strikes: {{ user.banStrikes }}</span>
+                                        </span>
+                                    <br>
+                                    {% if user.banDate is null%}
+                                    <span class="questiontitle">
+                                        <span>Activo</span>
+                                    </span>
+
+                                    {% else %}
+                                        <span class="questiontitle">
+                                        <span>Suspendido hasta: {{ user.banDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}</span>
+                                    </span>
+                                    {% endif %}
+                                    <br>
+                                    <span class="questiontitle">
+                                        <span>Fecha Registro: {{ user.registerDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}</span>
+                                        </span>
+                                    <br>
+                                    <span class="questiontitle">
+                                        <span>Puntos: {{ user.points }}</span>
+                                        </span>
+                                    <br>
+                                    <span class="questiontitle">
+                                        <span>Titulo</span>
+                                        </span>
+                                    <br>
+
+                                </div>
+                                <div>
+
+                                </div>
+
+
+
+
+                        <div class="">
+
+                        </div>
+
+                                <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-forever-{{ user.id }}="{{ (path('superzona_user_ban_forever', { userid: user.id})) }}" onclick="banForever({{ user.id  }})">Suspender inefinidamente</button>
+                                <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-days-{{ user.id }}="{{ (path('superzona_user_ban_days', { userid: user.id})) }}" onclick="banDays({{ user.id  }})">Suspender 3 dias</button>
+
+                        </div>
+
+
+                        </div>
+
+
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+            <!--
+            <div class="col-sm-2 order-md-2 col-md-2 ">
+                <button>Eliminar</button>
+            </div>
+            -->
+
+
+        </div>
+    </div>
+<script>
+
+    function banForever(userid){
+        var atributeOfElement = '[data-user-ban-forever-' + userid + ']';
+        console.log("atributeOfElement: " + atributeOfElement);
+        // data-question-score-decrease-
+        // var questionScoreDecrease = document.querySelector(atributeOfElement);
+        var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+        var atributeToGet = "data-user-ban-forever-" + userid;
+        var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+        try{
+
+
+            that = $(this);
+            $.ajax({
+                url: questionPath,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "userid": userid
+                },
+                async: true,
+                success: function (data)
+                {
+                    //var json = JSON.parse(data);
+
+
+                    // console.log(myObj[0]["result_code"]);
+
+                    // $('div#ajax-results').html(data.output);
+                    console.log(data.status);
+                    //window.alert(json.status);
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log("ERROR: " + request.responseText);
+                    // window.alert("ERROR: " + request.responseText);
+                    // alert(request.responseText);
+                }
+            });
+            return false;
+
+        }catch (err) {
+            console.log("error = "+err.message);
+            // window.alert("error = "+err.message);
+        }
+    }
+
+    function banDays(userid){
+        var atributeOfElement = '[data-user-ban-days-' + userid + ']';
+        console.log("atributeOfElement: " + atributeOfElement);
+        // data-question-score-decrease-
+        // var questionScoreDecrease = document.querySelector(atributeOfElement);
+        var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+        var atributeToGet = "data-user-ban-days-" + userid;
+        var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+        try{
+
+
+            that = $(this);
+            $.ajax({
+                url: questionPath,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "userid": userid
+                },
+                async: true,
+                success: function (data)
+                {
+                    //var json = JSON.parse(data);
+
+
+                    // console.log(myObj[0]["result_code"]);
+
+                    // $('div#ajax-results').html(data.output);
+                    console.log(data.status);
+                    //window.alert(json.status);
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log("ERROR: " + request.responseText);
+                    // window.alert("ERROR: " + request.responseText);
+                    // alert(request.responseText);
+                }
+            });
+            return false;
+
+        }catch (err) {
+            console.log("error = "+err.message);
+            // window.alert("error = "+err.message);
+        }
+    }
+
+</script>
+
+{% endblock %}
