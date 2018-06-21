@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+                <!-- H1 Article -->
+                <div class="main-article-link">
+                    <div class="main-article mb-5 pb-5">
+
+                        <div class="container">
+
+
+                            <div class="container">
+
+
+                                <form  class="form-signin" action="{{ path('edit_question', { questionid: question.id})  }}" method="post">
+                                    {{ form_row(form._token) }}
+                                    <h2 class="form-signin-heading">Edita la pregunta</h2>
+
+
+
+
+                                    {{ form_errors(form._title) }}
+                                    {{ form_widget(form._title, { 'attr': {'class': 'form-control', 'placeholder':'Titulo corto y conciso'} }) }}
+
+                                    {{ form_errors(form._text) }}
+                                    {{ form_widget(form._text, { 'attr': {'class': 'form-control, askquestion', 'placeholder':'Una pregunta muy descriptiva con todo tipo de detalles'} }) }}
+
+                                    <div class="divasktags">
+                                        {{ form_widget(form._tags, { 'attr': {'class': 'selectasktags'} }) }}
+                                    </div>
+                                    {{ form_errors(form._tags) }}
+
+
+
+                                    <button class="btn btn-lg btn-primary btn-block custombutton" type="submit">Editar</button>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

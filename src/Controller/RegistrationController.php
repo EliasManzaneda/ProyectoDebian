@@ -51,6 +51,9 @@ class RegistrationController extends Controller
             // $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
             $registerDate = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
             $user->setRegisterDate($registerDate);
+            $user->setAvatarPath('build/images/UserDefaultAvatar.png');
+            $user->setOldAvatar('build/images/UserDefaultAvatar.png');
+            $user->setNewAvatar('build/images/UserDefaultAvatar.png');
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();

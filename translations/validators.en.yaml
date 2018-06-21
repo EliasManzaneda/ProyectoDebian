@@ -1,3 +1,4 @@
 user.username.not_blank: Username cannot be left blank.
 user.username.min_message: Username must be at least 3 characters long.
 user.username.max_message: Username must be less than 30 characters long.
+user.username.avatar_mimetype: User avatar must be a valid image

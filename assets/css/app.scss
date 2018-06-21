@@ -582,9 +582,20 @@ a:visited{
   display: inline !important;
   color: $font-color-inverse-day !important;
 }
-
+.myprofilediv{
+  background-color: $font-color-inverse-day !important;
+}
+.whiterow{
+  background-color: $font-color-inverse-day !important;
+}
 .resolved{
   background-color: #f9de86 !important;
+}
+.linkeditquestion{
+  color: $font-color-inverse-day !important;
+}
+.linkeditquestion:visited{
+  color: $font-color-inverse-day !important;
 }
 
 .lowerbuttonscoreGray{
@@ -628,8 +639,27 @@ a:visited{
 
 
 .myquestionsdata{
+  /*
   display: block !important;
+  width: 100% !important;
+  border: 1px solid red;
+  */
 
+}
+
+.mylistquestioncontainer{
+  /*
+  width: 100% !important;
+  border: 1px solid yellow;
+  */
+}
+
+
+.mylitarticlequestion{
+  /*
+  width: 100% !important;
+  border: 1px solid blue;
+  */
 }
 
 .myquestionsstatus{

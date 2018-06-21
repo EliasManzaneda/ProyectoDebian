@@ -11,7 +11,7 @@
                     <!-- question info-->
                     <div class="row">
                         <div class="col-2 leftanswerplace">
-                            <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                            <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset(question.user.avatarPath) }}">
                         </div>
 
                         <div class="avatarpregunta col-8">
@@ -106,7 +106,7 @@
                                         <div class="article-container my-1 articlefullcontainer">
                                             <div class="row">
                                                 <div class="col-2 leftanswerplace">
-                                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset(question.selectedAnswer.user.avatarPath) }}">
                                                 </div>
                                                 <div class="avatarpregunta col-8">
                                                     <div class="article-title d-inline-block pl-3 align-middle questiondiv">
@@ -191,7 +191,7 @@
                         <div class="article-container my-1 articlefullcontainer">
                             <div class="row">
                                 <div class="col-2 leftanswerplace">
-                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                    <img class="article-img d-none d-xl-inline-block answeravathar" src="{{ asset(otherAnswer.user.avatarPath) }}">
                                 </div>
                                 <div class="avatarpregunta col-8">
                                     <div class="article-title d-inline-block pl-3 align-middle questiondiv">

@@ -37,7 +37,7 @@
 
 
                                         <div class="avatarpregunta">
-                                            <img class="article-img d-none d-xl-inline-block " src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                            <img class="article-img d-none d-xl-inline-block " src="{{ asset(question.user.avatarPath) }}">
                                         </div>
 
 
@@ -111,11 +111,9 @@
                                     <div class="article-container my-1 ">
                                         {% endif %}
 
-                                <!--
-                                <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
-                                -->
+
                                 <div class="avatarpregunta">
-                                    <img class="article-img d-none d-xl-inline-block " src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                    <img class="article-img d-none d-xl-inline-block " src="{{ asset(question.user.avatarPath) }}">
                                     <div class="article-title d-inline-block pl-3 align-middle questiondiv">
                                             <span class="questiontitle croptext">
                                                 <span>{{ question.title }}</span>
@@ -139,6 +137,7 @@
 
 
                             </div>
+
                         </a>
 
                     {% endfor %}

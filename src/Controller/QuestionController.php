@@ -71,9 +71,12 @@ class QuestionController extends AbstractController
             'newQuestions' => $newQuestions,
         ]);
         */
+
+        /*
         if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             // return $this->redirectToRoute('app_homepage');
         }
+        */
 
 
 
@@ -90,11 +93,7 @@ class QuestionController extends AbstractController
         $otherAnswers = $repository->findBy(array('question' => $questionid));
 
 
-        if($originalQuestion->getResolved() == true){
 
-
-
-        }
 
 
         $answer = new Answer();
@@ -407,7 +406,7 @@ class QuestionController extends AbstractController
 
 
     /**
-     * @Route("/askquestion", name="new_question")
+     * @Route("/new/question", name="new_question")
      */
     public function newQuestion(Request $request){
 
@@ -452,6 +451,61 @@ class QuestionController extends AbstractController
         ));
 
     }
+
+    /**
+     * @Route("/question/edit/{questionid}", name="edit_question")
+     */
+    public function editQuestion(Request $request, $questionid){
+
+
+        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $originalQuestion = $repository->findOneBy(array('id' => $questionid));
+
+
+        // $question = new Question();
+
+        $form = $this->createForm(QuestionType::class, $originalQuestion);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // $question = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $this->getUser();
+
+
+            $originalQuestion->setUser($originalQuestion->getUser());
+            $originalQuestion->setResolved($originalQuestion->getResolved());
+            $today = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $originalQuestion->setCreationDate($originalQuestion->getCreationDate());
+            $originalQuestion->setPoints($originalQuestion->getPoints());
+
+
+
+            $entityManager->persist($originalQuestion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+
+        return $this->render('question/editQuestion.html.twig', array(
+            'form' => $form->createView(),
+            'question' => $originalQuestion,
+        ));
+
+    }
+
 
     /**
      * @Route("/admin/delete/question", name="admin_delete_question")

@@ -30,77 +30,70 @@
                 </div>
 
 
-
                 {% else %}
 
-                            {% for question in questions %}
-                                <div  class="articlequestion">
+                    {% for question in questions %}
 
 
-                                    {% if question.resolved == true  %}
-                                    <div class="article-container my-1 resolved">
-                                        {% else %}
-                                        <div class="article-container my-1 ">
+
+                            {% if question.resolved == true  %}
+                            <div class="article-container my-1 resolved">
+                                {% else %}
+                                <div class="article-container my-1 ">
+                                    {% endif %}
+                        <a  class="articlequestion" href="{{ path("article_show", { questionid: question.id}) }}">
+                                    <!--
+                                <img class="article-img d-none d-xl-inline-block" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                -->
+                                    <div class="avatarpregunta">
+                                        <img class="article-img d-none d-xl-inline-block " src="{{ asset(question.user.avatarPath) }}">
+
+                                        <div class="article-title d-inline-block pl-3 align-middle questiondiv">
+                                            <span class="questiontitle croptext">
+                                                <span>{{ question.title }}</span>
+
+                                            </span>
+                                            <br>
+                                            <span class="align-left article-details">
+                                                <div class="croptext questiontext">
+                                                    <span>{{ question.text }}</span>
+                                                </div>
+
+
+                                                <span class="questiontime">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}</span>
+                                                                <br>
+                                                {% for tag in question.tags %}
+                                                    <span class="questionTag">{{ tag.name }}</span>
+                                                {% endfor %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            {% if question.resolved == true  %}
+                                                <p><b>Resuelta</b></p>
+                                            {% else %}
+                                                <p><b>Sin resolver</b></p>
                                             {% endif %}
-
-                                            <div class="avatarpregunta myquestionsdata ">
-
-
-                                                <div class="row">
-                                                    <a  class="linktoquestion" href="{{ path("article_show", { questionid: question.id}) }}">
-                                                    <div class="col-2">
-                                                        <img class="article-img d-none d-xl-inline-block " src="{{ asset('build/images/UserDefaultAvatar.png') }}">
-                                                    </div>
-                                                    <div class="article-title d-inline-block pl-3 align-middle questiondiv col-4">
-                                                    <span class="questiontitle croptext">
-                                                        <span>{{ question.title }}</span>
-                                                    </span>
-                                                        <br>
-                                                        <span class="align-left article-details">
-                                                        <div class="croptext questiontext">
-                                                            <span>{{ question.text }}</span>
-                                                        </div>
-                                                        <span class="questiontime">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}</span>
-                                                        <br>
-                                                            {% for tag in question.tags %}
-                                                                <span class="questionTag">{{ tag.name }}</span>
-                                                            {% endfor %}
-                                                    </span>
-                                                    </a>
-
-                                                </div>
-
-                                                    <div class="myquestionsstatus col-2">
-                                                        <a  class="linktoquestion" href="{{ path("article_show", { questionid: question.id}) }}">
-                                                        {% if question.resolved == true  %}
-                                                            <p><b>Resuelta</b></p>
-                                                        {% else %}
-                                                            <p><b>Sin resolver</b></p>
-                                                        {% endif %}
-                                                        </a>
-                                                    </div>
-
-
-                                               <div class="myquestionsstatus col-2">
-                                                        <button class="btn btn-lg btn-primary custombutton buttonmyquestions" >Editar</button>
-
-                                                        <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-question-delete-{{ question.id }}="{{ (path('question_delete', { questionid: question.id})) }}" onclick="deleteQuestion({{ question.id  }})">Eliminar</button>
-                                                    </div>
-
-
-
-                                                </div>
                                         </div>
+                        </a>
 
 
-                                            </div>
+
+                        <div class="">
+                            <a class="btn btn-lg btn-primary custombutton buttonmyquestions linkeditquestion" href="{{ path('edit_question', { questionid: question.id}) }}">Editar</a>
+
+                            <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-question-delete-{{ question.id }}="{{ (path('question_delete', { questionid: question.id})) }}" onclick="deleteQuestion({{ question.id  }})">Eliminar</button>
+                        </div>
+
+                                    </div>
 
 
-                                        </div>
                                 </div>
-                            {% endfor %}
 
-                    {% endif %}
+
+
+                    {% endfor %}
+
+                {% endif %}
 
             </div>
             <!--

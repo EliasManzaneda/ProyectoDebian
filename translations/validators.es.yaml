@@ -1,3 +1,10 @@
 user.username.not_blank: El nombre de usuario no puede dejarse en blanco.
 user.username.min_message: El nombre de usuario debe de contener al menos 3 caracteres.
 user.username.max_message: El nombre de usuario debe de contener menos de 30 caracteres.
+user.username.avatar_mimetype: El avatar de usuario debe de ser una imagen.
+user.avatar.minwidth: El avatar de usuario debe de tener un minimo de anchura de 16px.
+user.avatar.maxwidth: El avatar de usuario debe de tener un maximo de anchura de 256px.
+user.avatar.minheight: El avatar de usuario debe de tener un minimo de altura de 16px.
+user.avatar.maxheight: El avatar de usuario debe de tener un maximo de altura de 256px.
+user.avatar.landscape: El avatar de usuario debe de ser cuadrado.
+user.avatar.portrait:  El avatar de usuario debe de ser cuadrado.

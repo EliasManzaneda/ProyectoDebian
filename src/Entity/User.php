@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
+
 
 /**
  * @ORM\Table(name="app_users")
@@ -30,6 +35,14 @@ class User implements UserInterface, \Serializable
      * @Groups({"group1"})
      */
     private $id;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -119,6 +132,54 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $banStrikes;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\Image(
+     *     minWidth = 16,
+     *     minWidthMessage = "user.avatar.minwidth",
+     *     maxWidth = 256,
+     *     maxWidthMessage = "user.avatar.maxwidth",
+     *     minHeight = 16,
+     *     minHeightMessage = "user.avatar.minheight",
+     *     maxHeight = 256,
+     *     maxHeightMessage = "user.avatar.maxheight",
+     *     allowLandscape = false,
+     *     allowLandscapeMessage = "user.avatar.landscape",
+     *     allowPortrait = false,
+     *     allowPortraitMessage = "user.avatar.portrait",
+     *     mimeTypesMessage = "user.avatar.mimetype"
+     * )
+     */
+    private $avatarPath;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $oldAvatar;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     *
+     * @Assert\Image(
+     *     minWidth = 16,
+     *     minWidthMessage = "user.avatar.minwidth",
+     *     maxWidth = 256,
+     *     maxWidthMessage = "user.avatar.maxwidth",
+     *     minHeight = 16,
+     *     minHeightMessage = "user.avatar.minheight",
+     *     maxHeight = 256,
+     *     maxHeightMessage = "user.avatar.maxheight",
+     *     allowLandscape = false,
+     *     allowLandscapeMessage = "user.avatar.landscape",
+     *     allowPortrait = false,
+     *     allowPortraitMessage = "user.avatar.portrait",
+     *     mimeTypesMessage = "user.avatar.mimetype"
+     * )
+     */
+    private $newAvatar;
 
 
 
@@ -432,6 +493,42 @@ class User implements UserInterface, \Serializable
     public function setBanStrikes(int $banStrikes): self
     {
         $this->banStrikes = $banStrikes;
+
+        return $this;
+    }
+
+    public function getAvatarPath(): ?string
+    {
+        return $this->avatarPath;
+    }
+
+    public function setAvatarPath(string $avatarPath): self
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    public function getOldAvatar(): ?string
+    {
+        return $this->oldAvatar;
+    }
+
+    public function setOldAvatar(?string $oldAvatar): self
+    {
+        $this->oldAvatar = $oldAvatar;
+
+        return $this;
+    }
+
+    public function getNewAvatar(): ?string
+    {
+        return $this->newAvatar;
+    }
+
+    public function setNewAvatar(?string $newAvatar): self
+    {
+        $this->newAvatar = $newAvatar;
 
         return $this;
     }

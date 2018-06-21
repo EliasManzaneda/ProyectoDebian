@@ -5,30 +5,40 @@
 
 <div class="container">
     <div class="row">
+        <p>error {{ error }}</p>
+        <br>
+        <p>submitttedAndValid {{ submitttedAndValid }}</p>
 
-        <div class="col-md-1 order-md-1"></div>
-        <div class="col-sm-12 order-md-2 col-md-10 ">
-            <!-- H1 Article -->
-            <div class="main-article-link" href="#">
-                <div class="main-article mb-5 pb-3">
+            <div class="col-md-1 order-md-1"></div>
+            <div class="col-sm-12 order-md-2 col-md-10 ">
+                <h1 class="mispreguntastitulo">Mi Perfil</h1>
+                <div class="avatarpregunta myquestionsdata ">
+                    <div class="row">
+                        <div class="col-12 myquestionsnoquestions myprofilediv">
+                            {{ form_start(form, { 'attr': {'class': 'form-signin', 'action': path('user_profile', { userid: userid}) } }) }}
 
-                    <div class="container">
+                            {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder':'Usuario'} }) }}
+                            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Correo electrónico'} }) }}
+                            {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Contraseña'} }) }}
+                            {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Repite la contraseña'} }) }}
 
-                            <h2>{{ app.user.username }}</h2>
+                            <button class="btn btn-lg btn-primary btn-block signinbtn custombutton" type="submit">Actualizar mis datos</button>
+
+                            <br>
+                            {{ form_errors(form.username) }}
+                            {{ form_errors(form.email) }}
+
+                            {{ form_errors(form.plainPassword.first) }}
+                            {{ form_errors(form.plainPassword.second) }}
 
 
-
+                            {{ form_end(form) }}
+                        </div>
                     </div>
 
                 </div>
-            </div>
+                </div>
 
-
-
-        </div>
-
-
-    </div>
 </div>
 
 {% endblock %}

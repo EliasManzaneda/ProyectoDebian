@@ -8,28 +8,155 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
+use App\Entity\User;
+use App\Form\AvatarType;
+use App\Form\ProfileType;
+use App\Form\UserType;
+use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+
+
 
 class UserController extends AbstractController
 {
+
+
+
     /**
-     * @Route("/profile", name="user_profile")
+     * @Route("/user/{userid}/profile", name="user_profile")
      */
-    public function profile()
+    public function profileAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, $userid, FileUploader $fileUploader)
     {
-        if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER') || !$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ) {
-            return $this->redirectToRoute('app_homepage');
+
+
+
+        $submitttedAndValid = 'maybe';
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+        // $originalUser= $repository->findOneBy(array('id' => $userid));
+        $user = $repository->findOneBy(array('id' => $userid));
+        // $user = $this->getUser();
+
+
+
+        $form = $this->createForm(ProfileType::class, $user);
+
+
+       // $form->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
+
+
+            $data = $form->getData();
+
+
+            $submitttedAndValid = 'yes';
+            // $originalUser= $repository->findOneBy(array('id' => $userid));
+
+            // $question = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            // $user->setPassword($password);
+            $user->setPassword($password);
+            $user->setUsername($user->getUsername());
+
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // return $this->redirectToRoute('app_homepage');
+            return $this->render('user/profile.html.twig', array(
+                'form' => $form->createView(),
+                'userid' => $userid,
+                'error' => 'no',
+                'submitttedAndValid' => $submitttedAndValid,
+
+            ));
+
+            try{
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $data = $form->getData();
+
+
+                    $submitttedAndValid = 'yes';
+                    // $originalUser= $repository->findOneBy(array('id' => $userid));
+
+                    // $question = $form->getData();
+
+                    $entityManager = $this->getDoctrine()->getManager();
+
+                    $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                    // $user->setPassword($password);
+                    $user->setPassword($password);
+                    $user->setUsername($user->getUsername());
+
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    // return $this->redirectToRoute('app_homepage');
+                    return $this->render('user/profile.html.twig', array(
+                        'form' => $form->createView(),
+                        'userid' => $userid,
+                        'error' => 'no',
+                        'submitttedAndValid' => $submitttedAndValid,
+
+                    ));
+                    // $entityManager->refresh($user);
+                }else{
+                    $submitttedAndValid = 'no';
+                }
+
+
+            }catch(\Exception $e){
+                $submitttedAndValid = 'yes but error';
+                return $this->render('user/profile.html.twig', array(
+                    'form' => $form->createView(),
+                    'userid' => $userid,
+                    'error' => $e->getMessage(),
+                    'submitttedAndValid' => $submitttedAndValid,
+
+                ));
+            }
+
         }
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user = $this->getUser();
-
-        //             'user' => $user,
-        return $this->render('user/profile.html.twig', [
 
 
-        ]);
+
+
+        return $this->render('user/profile.html.twig', array(
+            'form' => $form->createView(),
+            'userid' => $userid,
+            'error' => 'none',
+            'submitttedAndValid' => $submitttedAndValid,
+
+        ));
+
+
+    }
+
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        // md5() reduces the similarity of the file names generated by
+        // uniqid(), which is based on timestamps
+        return md5(uniqid());
     }
 }

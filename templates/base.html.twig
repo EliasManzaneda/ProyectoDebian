@@ -65,10 +65,10 @@
                             <ul class="navbar-nav ml-auto ">
                                 <li class="nav-item dropdown" style="margin-right: 75px;">
                                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="navavatarusername">{{ app.user.username }} </span><img class="nav-profile-img navavatar" src="{{ asset('build/images/UserDefaultAvatar.png') }}">
+                                        <span class="navavatarusername">{{ app.user.username }} </span><img class="nav-profile-img navavatar" src="{{ asset(app.user.avatarPath) }}">
                                     </a>
                                     <div class="dropdown-menu navbaroptions" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="{{ path("user_profile") }}">Mi Perfil</a>
+                                        <a class="dropdown-item" href="{{ path("user_profile",{ userid: app.user.id}) }}">Mi Perfil</a>
                                         <a class="dropdown-item" href="{{ path("list_questions") }}">Mis Preguntas</a>
                                         <a class="dropdown-item" href="{{ path("new_question") }}">Preguntar</a>
                                         <a class="dropdown-item" href="{{ path("logout") }}">Salir</a>
