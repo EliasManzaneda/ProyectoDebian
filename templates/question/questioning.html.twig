@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-8">
                             <hr>
-                            <p class="answerauthor">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.user.username }} </p>
+                            <p class="answerauthor">{{ question.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.user.username }} {% if question.user.titles|length > 0 is null %}({{ question.user.titles[0].name }}){% endif %}</p>
                         </div>
                     </div>
 
@@ -143,7 +143,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <hr>
-                                                    <p class="answerauthor">{{ question.selectedAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.selectedAnswer.user.username }} </p>
+                                                    <p class="answerauthor">{{ question.selectedAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ question.selectedAnswer.user.username }} {% if question.selectedAnswer.user.titles|length > 0 is null %}({{ question.selectedAnswer.user.titles[0].name }}){% endif %}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,7 +241,7 @@
                                 </div>
                                 <div class="col-8">
                                     <hr>
-                                    <p class="answerauthor">{{ otherAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ otherAnswer.user.username }} </p>
+                                    <p class="answerauthor">{{ otherAnswer.creationDate|date("d/m/Y H:i:s", 'Europe/Madrid') }}, {{ otherAnswer.user.username }} {% if otherAnswer.user.titles|length > 0 is null %}({{ otherAnswer.user.titles[0].name }}){% endif %}</p>
                                 </div>
                             </div>
                         </div>

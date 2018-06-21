@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\AnswerScore;
 use App\Entity\QuestionScore;
+use App\Entity\Title;
 use App\Entity\User;
 use App\Entity\Question;
 use App\Entity\Answer;
@@ -295,9 +296,6 @@ class QuestionController extends AbstractController
                     'searching' => false
                 ]);
             }
-
-
-
 
 
         }
@@ -869,6 +867,9 @@ class QuestionController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
+        $questionuser = $originalQuestion->getUser();
+        $questionusernewpoints = $questionuser->getPoints();
+
         if($alreadyScored == null){
             // Answer was not yet scored by this user
             $questionScoring = new QuestionScore();
@@ -878,7 +879,7 @@ class QuestionController extends AbstractController
 
             $originalQuestion->setPoints(($originalQuestion->getPoints() + 1));
 
-
+            $questionusernewpoints = $questionuser->getPoints() + 1;
 
 
             try{
@@ -891,7 +892,65 @@ class QuestionController extends AbstractController
             }catch(Exception $e){
                 $status = $e->getMessage();
             }
-            $newScore = $originalQuestion->getPoints();
+
+            try{
+                $newScore = $originalQuestion->getPoints();
+                $questionuser->setPoints($questionusernewpoints);
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+
+                $repository = $this->getDoctrine()->getRepository(Title::class);
+                $titles = $repository->findAll();
+                $newTitle = null;
+                if($questionuser->getPoints() >= 50){
+                    $newTitle = $repository->findOneBy(array('id' =>2));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 100){
+                    $newTitle = $repository->findOneBy(array('id' =>3));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 500){
+                    $newTitle = $repository->findOneBy(array('id' =>4));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -50){
+                    $newTitle = $repository->findOneBy(array('id' =>5));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -100){
+                    $newTitle = $repository->findOneBy(array('id' =>6));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -500){
+                    $newTitle = $repository->findOneBy(array('id' =>7));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= -49 && $questionuser->getPoints() <= 49){
+                    $newTitle = $repository->findOneBy(array('id' =>0));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($newTitle != null){
+                    $questionuser->addTitle($newTitle);
+                }
+                
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+            }catch(\Exception $e){ }
             return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
 
 
@@ -901,6 +960,7 @@ class QuestionController extends AbstractController
             if($alreadyScored->getScore() != 1){
                 $alreadyScored->setScore(1);
                 $originalQuestion->setPoints(($originalQuestion->getPoints() + 2));
+                $questionusernewpoints = $questionuser->getPoints() + 2;
             }
             try{
                 $entityManager->persist($alreadyScored);
@@ -908,11 +968,72 @@ class QuestionController extends AbstractController
 
                 $entityManager->flush();
 
+
+
+
                 $status = "Puntuación actualizada.";
             }catch(Exception $e){
                 $status = $e->getMessage();
             }
-            $newScore = $originalQuestion->getPoints();
+
+            try{
+                $newScore = $originalQuestion->getPoints();
+                $questionuser->setPoints($questionusernewpoints);
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+
+                $repository = $this->getDoctrine()->getRepository(Title::class);
+                $titles = $repository->findAll();
+                $newTitle = null;
+                if($questionuser->getPoints() >= 50){
+                    $newTitle = $repository->findOneBy(array('id' =>2));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 100){
+                    $newTitle = $repository->findOneBy(array('id' =>3));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 500){
+                    $newTitle = $repository->findOneBy(array('id' =>4));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -50){
+                    $newTitle = $repository->findOneBy(array('id' =>5));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -100){
+                    $newTitle = $repository->findOneBy(array('id' =>6));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -500){
+                    $newTitle = $repository->findOneBy(array('id' =>7));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= -49 && $questionuser->getPoints() <= 49){
+                    $newTitle = $repository->findOneBy(array('id' =>0));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($newTitle != null){
+                    $questionuser->addTitle($newTitle);
+                }
+
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+            }catch(\Exception $e){ }
             return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
 
         }
@@ -950,6 +1071,9 @@ class QuestionController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
+        $questionuser = $originalQuestion->getUser();
+        $questionusernewpoints = $questionuser->getPoints();
+
         if($alreadyScored == null){
             // Answer was not yet scored by this user
             $questionScoring = new QuestionScore();
@@ -957,8 +1081,10 @@ class QuestionController extends AbstractController
             $questionScoring->setScoredBy($user);
             $questionScoring->setScore(-1);
 
-            $originalQuestion->setPoints(($originalQuestion->getPoints() - 1));
 
+
+            $originalQuestion->setPoints(($originalQuestion->getPoints() - 1));
+            $questionusernewpoints = $questionuser->getPoints() - 1;
 
 
 
@@ -968,11 +1094,71 @@ class QuestionController extends AbstractController
 
                 $entityManager->flush();
 
+
+
                 $status = "Se ha puntuado la pregunta.";
             }catch(Exception $e){
                 $status = $e->getMessage();
             }
-            $newScore = $originalQuestion->getPoints();
+
+            try{
+                $newScore = $originalQuestion->getPoints();
+                $questionuser->setPoints($questionusernewpoints);
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+
+                $repository = $this->getDoctrine()->getRepository(Title::class);
+                $titles = $repository->findAll();
+                $newTitle = null;
+                if($questionuser->getPoints() >= 50){
+                    $newTitle = $repository->findOneBy(array('id' =>2));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 100){
+                    $newTitle = $repository->findOneBy(array('id' =>3));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 500){
+                    $newTitle = $repository->findOneBy(array('id' =>4));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -50){
+                    $newTitle = $repository->findOneBy(array('id' =>5));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -100){
+                    $newTitle = $repository->findOneBy(array('id' =>6));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -500){
+                    $newTitle = $repository->findOneBy(array('id' =>7));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= -49 && $questionuser->getPoints() <= 49){
+                    $newTitle = $repository->findOneBy(array('id' =>0));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($newTitle != null){
+                    $questionuser->addTitle($newTitle);
+                }
+
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+            }catch(\Exception $e){ }
             return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
 
 
@@ -982,6 +1168,7 @@ class QuestionController extends AbstractController
             if($alreadyScored->getScore() != -1){
                 $alreadyScored->setScore(-1);
                 $originalQuestion->setPoints(($originalQuestion->getPoints() - 2));
+                $questionusernewpoints = $questionuser->getPoints() - 2;
             }
             try{
                 $entityManager->persist($alreadyScored);
@@ -993,7 +1180,68 @@ class QuestionController extends AbstractController
             }catch(Exception $e){
                 $status = $e->getMessage();
             }
-            $newScore = $originalQuestion->getPoints();
+
+
+
+
+            try{
+                $newScore = $originalQuestion->getPoints();
+                $questionuser->setPoints($questionusernewpoints);
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+
+                $repository = $this->getDoctrine()->getRepository(Title::class);
+                $titles = $repository->findAll();
+                $newTitle = null;
+                if($questionuser->getPoints() >= 50){
+                    $newTitle = $repository->findOneBy(array('id' =>2));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 100){
+                    $newTitle = $repository->findOneBy(array('id' =>3));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= 500){
+                    $newTitle = $repository->findOneBy(array('id' =>4));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -50){
+                    $newTitle = $repository->findOneBy(array('id' =>5));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -100){
+                    $newTitle = $repository->findOneBy(array('id' =>6));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() <= -500){
+                    $newTitle = $repository->findOneBy(array('id' =>7));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($questionuser->getPoints() >= -49 && $questionuser->getPoints() <= 49){
+                    $newTitle = $repository->findOneBy(array('id' =>0));
+                    foreach ($titles as &$title) {
+                        $questionuser->removeTitle($title);
+                    }
+                }
+                if($newTitle != null){
+                    $questionuser->addTitle($newTitle);
+                }
+
+                $entityManager->persist($questionuser);
+                $entityManager->flush();
+            }catch(\Exception $e){ }
             return new JsonResponse(array('status' => $status, 'newScore' => $newScore));
 
         }

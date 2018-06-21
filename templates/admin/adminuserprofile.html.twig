@@ -45,8 +45,15 @@
                     <div class="article-container my-1 ">
 
 
+                        {% if user.banDate %}
+                        <div class="avatarpregunta banneduser">
+                        {% elseif  user.banStrikes >= 3 and  user.banDate is null %}
+                            <div class="avatarpregunta outofwarnings">
+                        {% else %}
+                        <div class="avatarpregunta">
+                        {% endif %}
 
-                            <div class="avatarpregunta">
+
                                 <img class="article-img d-none d-xl-inline-block " src="{{ asset(user.avatarPath) }}">
 
                                 <div class="article-title d-inline-block pl-3 align-middle questiondiv">
@@ -55,10 +62,10 @@
                                     </span>
                                     <br>
                                     <span class="questiontitle">
-                                        <span>Ban Strikes: {{ user.banStrikes }}</span>
+                                        <span>Avisos: {{ user.banStrikes }}</span>
                                         </span>
                                     <br>
-                                    {% if user.banDate is null%}
+                                    {% if user.banDate is null %}
                                     <span class="questiontitle">
                                         <span>Activo</span>
                                     </span>
@@ -77,9 +84,11 @@
                                         <span>Puntos: {{ user.points }}</span>
                                         </span>
                                     <br>
+                                    {% if user.titles|length > 0 is null %}
                                     <span class="questiontitle">
-                                        <span>Titulo</span>
+                                        <span>{{ user.titles[0].name }}</span>
                                         </span>
+                                    {% endif %}
                                     <br>
 
                                 </div>
@@ -96,13 +105,22 @@
 
                                 <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-forever-{{ user.id }}="{{ (path('superzona_user_ban_forever', { userid: user.id})) }}" onclick="banForever({{ user.id  }})">Suspender inefinidamente</button>
                                 <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-days-{{ user.id }}="{{ (path('superzona_user_ban_days', { userid: user.id})) }}" onclick="banDays({{ user.id  }})">Suspender 3 dias</button>
+                                <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-remove-{{ user.id }}="{{ (path('superzona_user_ban_remove', { userid: user.id})) }}" onclick="banRemove({{ user.id  }})">Perdonar</button>
+                                <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-ban-strike-{{ user.id }}="{{ (path('superzona_user_ban_strike', { userid: user.id})) }}" onclick="banStrike({{ user.id  }})">Avisar</button>
+
+                            <div>
+
+                                <button class="btn btn-lg btn-primary custombutton buttonmyquestions" data-user-change-avatar-{{ user.id }}="{{ (path('superzona_user_change_avatar', { userid: user.id})) }}" onclick="changeAvatar({{ user.id  }})">Cambiar Avatar</button>
+                            </div>
 
                         </div>
 
 
+
+
                         </div>
 
-
+                            <hr>
 
                     {% endfor %}
 
@@ -179,6 +197,160 @@
         var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
 
         var atributeToGet = "data-user-ban-days-" + userid;
+        var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+        try{
+
+
+            that = $(this);
+            $.ajax({
+                url: questionPath,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "userid": userid
+                },
+                async: true,
+                success: function (data)
+                {
+                    //var json = JSON.parse(data);
+
+
+                    // console.log(myObj[0]["result_code"]);
+
+                    // $('div#ajax-results').html(data.output);
+                    console.log(data.status);
+                    //window.alert(json.status);
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log("ERROR: " + request.responseText);
+                    // window.alert("ERROR: " + request.responseText);
+                    // alert(request.responseText);
+                }
+            });
+            return false;
+
+        }catch (err) {
+            console.log("error = "+err.message);
+            // window.alert("error = "+err.message);
+        }
+    }
+
+    function banRemove(userid){
+        var atributeOfElement = '[data-user-ban-remove-' + userid + ']';
+        console.log("atributeOfElement: " + atributeOfElement);
+        // data-question-score-decrease-
+        // var questionScoreDecrease = document.querySelector(atributeOfElement);
+        var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+        var atributeToGet = "data-user-ban-remove-" + userid;
+        var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+        try{
+
+
+            that = $(this);
+            $.ajax({
+                url: questionPath,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "userid": userid
+                },
+                async: true,
+                success: function (data)
+                {
+                    //var json = JSON.parse(data);
+
+
+                    // console.log(myObj[0]["result_code"]);
+
+                    // $('div#ajax-results').html(data.output);
+                    console.log(data.status);
+                    //window.alert(json.status);
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log("ERROR: " + request.responseText);
+                    // window.alert("ERROR: " + request.responseText);
+                    // alert(request.responseText);
+                }
+            });
+            return false;
+
+        }catch (err) {
+            console.log("error = "+err.message);
+            // window.alert("error = "+err.message);
+        }
+    }
+
+
+    function banStrike(userid){
+        var atributeOfElement = '[data-user-ban-strike-' + userid + ']';
+        console.log("atributeOfElement: " + atributeOfElement);
+        // data-question-score-decrease-
+        // var questionScoreDecrease = document.querySelector(atributeOfElement);
+        var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+        var atributeToGet = "data-user-ban-strike-" + userid;
+        var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
+
+
+
+        try{
+
+
+            that = $(this);
+            $.ajax({
+                url: questionPath,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "userid": userid
+                },
+                async: true,
+                success: function (data)
+                {
+                    //var json = JSON.parse(data);
+
+
+                    // console.log(myObj[0]["result_code"]);
+
+                    // $('div#ajax-results').html(data.output);
+                    console.log(data.status);
+                    //window.alert(json.status);
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log("ERROR: " + request.responseText);
+                    // window.alert("ERROR: " + request.responseText);
+                    // alert(request.responseText);
+                }
+            });
+            return false;
+
+        }catch (err) {
+            console.log("error = "+err.message);
+            // window.alert("error = "+err.message);
+        }
+    }
+
+    function changeAvatar(userid){
+        var atributeOfElement = '[data-user-change-avatar-' + userid + ']';
+        console.log("atributeOfElement: " + atributeOfElement);
+        // data-question-score-decrease-
+        // var questionScoreDecrease = document.querySelector(atributeOfElement);
+        var questionScoreDecrease= document.querySelectorAll(atributeOfElement)[0];
+
+        var atributeToGet = "data-user-change-avatar-" + userid;
         var questionPath = questionScoreDecrease.getAttribute(atributeToGet);
 
 

@@ -16,6 +16,7 @@ use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,7 +85,54 @@ class UserController extends AbstractController
      */
     public function adminUserProfile(Request $request, $adminid)
     {
+        // SearchBar Start
+        $repository = $this->getDoctrine()->getRepository(Question::class);
+        $questions = $repository->findForHomepage();
+        $questionsResolved = $repository->findForResolved();
+        $newQuestions = array_slice($questionsResolved, -5);
+        $data = [
+            "searchbar" => "default"
+        ];
+        $defaultData = array('message' => 'Type your message here');
 
+        $form = $this->createFormBuilder($defaultData)
+            ->add('searchtext', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $searchedquestion = $data["searchtext"];
+            $repository = $this->getDoctrine()->getRepository(Question::class);
+            if (empty($searchedquestion)) {
+                $searchedquestion = "%";
+            }
+
+            $questions = $repository->findForSearchbar($searchedquestion);
+
+
+            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                return $this->render('homepage.html.twig', [
+                    'questions' => $questions,
+                    'newQuestions' => $newQuestions,
+                    'form' => $form->createView(),
+                    'searched' => $data['searchtext'],
+                    'searching' => false
+                ]);
+            }else{
+                return $this->render('homepage.html.twig', [
+                    'questions' => $questions,
+                    'newQuestions' => $newQuestions,
+                    'form' => $form->createView(),
+                    'searched' => $data['searchtext'],
+                    'searching' => false
+                ]);
+            }
+
+
+        }
+        // SearchBar End
 
         try{
             $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
@@ -116,7 +164,6 @@ class UserController extends AbstractController
             if($user->getId() != $me->getId()){
                 array_push($editedUsers,$user);
             }
-
         }
 
 
@@ -124,7 +171,12 @@ class UserController extends AbstractController
 
 
         return $this->render('admin/adminuserprofile.html.twig', array(
-            "users" => $editedUsers
+            "users" => $editedUsers,
+            'questions' => $questions,
+            'newQuestions' => $newQuestions,
+            'form' => $form->createView(),
+            'searched' => $data['searchbar'],
+            'searching' => false
         ));
     }
 
@@ -381,6 +433,181 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $status = "Usuario suspendido .";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+
+
+        return new JsonResponse(array('status' => $status));
+
+    }
+
+
+
+
+    /**
+     * @Route("/super/{userid}/banpremove", name="superzona_user_ban_remove")
+     */
+    public function banRemove(Request $request, $userid){
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userToBan = $repository->findOneBy(array('id' => $userid));
+
+
+        $status = "";
+
+
+        try{
+
+            $registerDate = new \DateTime('now - 3 days', (new \DateTimeZone('Europe/Madrid')));
+            $userToBan->setBanDate(null);
+            $entityManager->persist($userToBan);
+
+
+            $entityManager->flush();
+
+            $status = "Usuario perdonado .";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+
+
+        return new JsonResponse(array('status' => $status));
+
+    }
+
+
+
+    /**
+     * @Route("/super/{userid}/banstrike", name="superzona_user_ban_strike")
+     */
+    public function banStrike(Request $request, $userid){
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userToBan = $repository->findOneBy(array('id' => $userid));
+
+
+        $status = "";
+
+
+        try{
+
+            // $registerDate = new \DateTime('now - 3 days', (new \DateTimeZone('Europe/Madrid')));
+            // $userToBan->setBanDate(null);
+            $banStrikes = $userToBan->getBanStrikes() + 1;
+            $userToBan->setBanStrikes($banStrikes);
+            $entityManager->persist($userToBan);
+
+
+            $entityManager->flush();
+
+            $status = "Usuario perdonado .";
+        }catch(Exception $e){
+            $status = $e->getMessage();
+        }
+
+
+
+        return new JsonResponse(array('status' => $status));
+
+    }
+
+
+    /**
+     * @Route("/super/{userid}/changeavatar", name="superzona_user_change_avatar")
+     */
+    public function changeAvatar(Request $request, $userid){
+
+
+        try{
+            $now = new \DateTime('now', (new \DateTimeZone('Europe/Madrid')));
+            $me = $this->getUser();
+
+            if($me != null){
+                if($me->getBanDate() != null ){
+                    if($me->getBanDate() >= $now){
+                        return $this->render('suspendido.html.twig', array(
+
+                        ));
+                    }
+
+                }
+            }
+        }catch(\Exception $e){
+
+        }
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userToBan = $repository->findOneBy(array('id' => $userid));
+
+
+        $status = "";
+
+
+        try{
+
+            // $registerDate = new \DateTime('now - 3 days', (new \DateTimeZone('Europe/Madrid')));
+            // $userToBan->setBanDate(null);
+            // $banStrikes = $userToBan->getBanStrikes() + 1;
+            // $userToBan->setBanStrikes($banStrikes);
+            $userToBan->setAvatarPath('build/images/UserDefaultAvatar.png');
+            $userToBan->setOldAvatar('build/images/UserDefaultAvatar.png');
+            $userToBan->setNewAvatar('build/images/UserDefaultAvatar.png');
+            $entityManager->persist($userToBan);
+
+
+            $entityManager->flush();
+
+            $status = "Usuario perdonado .";
         }catch(Exception $e){
             $status = $e->getMessage();
         }

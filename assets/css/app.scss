@@ -693,3 +693,16 @@ a:visited{
 .centerbanned{
   text-align: center;
 }
+
+.banneduser{
+  background-color: firebrick;
+  color: black !important;
+}
+.banneduser p, .banneduser span{
+  color: black !important;
+}
+
+.outofwarnings{
+  background-color: #F5871F;
+
+}

@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Entity\Role;
+use App\Entity\Title;
 use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -54,6 +55,14 @@ class RegistrationController extends Controller
             $user->setAvatarPath('build/images/UserDefaultAvatar.png');
             $user->setOldAvatar('build/images/UserDefaultAvatar.png');
             $user->setNewAvatar('build/images/UserDefaultAvatar.png');
+
+            $repository = $this->getDoctrine()->getRepository(Title::class);
+            $titles = $repository->findAll();
+
+            $newTitle = $repository->findOneBy(array('id' => 0));
+            if($newTitle != null){
+                $user->addTitle($newTitle);
+            }
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
